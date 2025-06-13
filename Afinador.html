@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afinador de Guitarra</title>
+  <style>
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #18181b, #09090b);
+      color: white;
+      padding: 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.875rem;
+      font-weight: bold;
+    }
+
+    /* Estilos del afinador */
+    .tuner {
+      background-color: #27272a;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Selector de cuerdas */
+    .string-selector {
+      margin-bottom: 1.5rem;
+    }
+
+    .string-selector h2 {
+      text-align: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      color: #a1a1aa;
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .string-buttons {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .string-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 4rem;
+      width: 100%;
+      border-radius: 0.5rem;
+      border: 1px solid #3f3f46;
+      background-color: #27272a;
+      color: #a1a1aa;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .string-button:hover {
+      background-color: rgba(63, 63, 70, 0.5);
+      transform: scale(1.05);
+    }
+
+    .string-button:active {
+      transform: scale(0.95);
+    }
+
+    .string-button.selected {
+      background-color: #3f3f46;
+      color: white;
+    }
+
+    .string-button .note {
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
+
+    .string-button .number {
+      font-size: 0.75rem;
+    }
+
+    /* Animación de entrada para los botones */
+    .string-button:nth-child(1) { animation-delay: 0.1s; }
+    .string-button:nth-child(2) { animation-delay: 0.2s; }
+    .string-button:nth-child(3) { animation-delay: 0.3s; }
+    .string-button:nth-child(4) { animation-delay: 0.4s; }
+    .string-button:nth-child(5) { animation-delay: 0.5s; }
+    .string-button:nth-child(6) { animation-delay: 0.6s; }
+
+    /* Guitarra animada */
+    .guitar-animation {
+      position: relative;
+      margin: 0.5rem 0 1.5rem;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s ease 0.2s forwards;
+    }
+
+    .guitar-svg {
+      width: 280px;
+      height: 180px;
+    }
+
+    .guitar-body {
+      fill: #713f12;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: scaleIn 0.7s ease 0.2s forwards;
+    }
+
+    .sound-hole {
+      fill: #27272a;
+      opacity: 0;
+      transform: scale(0);
+      animation: scaleIn 0.5s ease 0.4s forwards;
+    }
+
+    .guitar-neck {
+      fill: #854d0e;
+      opacity: 0;
+      transform: scaleY(0);
+      transform-origin: 150px 60px;
+      animation: scaleIn 0.5s ease 0.3s forwards;
+    }
+
+    .guitar-head {
+      fill: #422006;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: slideDown 0.5s ease 0.5s forwards;
+    }
+
+    .guitar-tuners {
+      opacity: 0;
+      animation: fadeIn 0.5s ease 0.6s forwards;
+    }
+
+    .guitar-tuner {
+      fill: #d4d4d8;
+    }
+
+    .guitar-string {
+      stroke: #d4d4d8;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawLine 0.8s ease forwards;
+    }
+
+    .string-1 { animation-delay: 0.7s; }
+    .string-2 { animation-delay: 0.8s; }
+    .string-3 { animation-delay: 0.9s; }
+    .string-4 { animation-delay: 1.0s; }
+    .string-5 { animation-delay: 1.1s; }
+    .string-6 { animation-delay: 1.2s; }
+
+    @keyframes scaleIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Partículas */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .particles.active {
+      opacity: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #10b981;
+      opacity: 0;
+    }
+
+    /* Tuner display */
+    .tuner-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .meter-container {
+      width: 100%;
+      height: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .note-display {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .current-note {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .frequency {
+      font-size: 1.125rem;
+      color: #a1a1aa;
+      margin-left: 0.5rem;
+    }
+
+    .tuning-status {
+      text-align: center;
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .status-low {
+      color: #3b82f6;
+    }
+
+    .status-high {
+      color: #ef4444;
+    }
+
+    .status-correct {
+      color: #10b981;
+      animation: pulse 1s ease infinite alternate;
+    }
+
+    .status-neutral {
+      color: #a1a1aa;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+
+    .target-note {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #a1a1aa;
+      opacity: 0;
+      animation: fadeIn 0.3s ease 0.2s forwards;
+    }
+
+    /* Controles */
+    .controls {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s ease 0.3s forwards;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+    }
+
+    .btn-danger {
+      background-color: #dc2626;
+      color: white;
+      border: none;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: white;
+      border: 1px solid #3f3f46;
+    }
+
+    .btn-outline:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-outline:disabled:hover {
+      transform: none;
+    }
+
+    /* Mensaje de error */
+    .error-message {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+      background-color: rgba(220, 38, 38, 0.1);
+      color: #ef4444;
+      text-align: center;
+      font-size: 0.875rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    /* Iconos */
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Afinador de Guitarra</h1>
+    
+    <div class="tuner">
+      <!-- Selector de cuerdas -->
+      <div class="string-selector">
+        <h2>Selecciona una cuerda:</h2>
+        <div class="string-buttons">
+          <button class="string-button selected" data-string="6" data-note="E" data-frequency="82.41">
+            <span class="note">E</span>
+            <span class="number">6</span>
+          </button>
+          <button class="string-button" data-string="5" data-note="A" data-frequency="110.0">
+            <span class="note">A</span>
+            <span class="number">5</span>
+          </button>
+          <button class="string-button" data-string="4" data-note="D" data-frequency="146.83">
+            <span class="note">D</span>
+            <span class="number">4</span>
+          </button>
+          <button class="string-button" data-string="3" data-note="G" data-frequency="196.0">
+            <span class="note">G</span>
+            <span class="number">3</span>
+          </button>
+          <button class="string-button" data-string="2" data-note="B" data-frequency="246.94">
+            <span class="note">B</span>
+            <span class="number">2</span>
+          </button>
+          <button class="string-button" data-string="1" data-note="E" data-frequency="329.63">
+            <span class="note">E</span>
+            <span class="number">1</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Guitarra animada -->
+      <div class="guitar-animation">
+        <svg class="guitar-svg" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cuerpo de la guitarra -->
+          <path class="guitar-body" d="M40,120 C40,80 80,60 140,60 C200,60 240,80 240,120 C240,150 200,170 140,170 C80,170 40,150 40,120 Z"></path>
+          
+          <!-- Agujero de sonido -->
+          <circle class="sound-hole" cx="140" cy="120" r="30"></circle>
+          
+          <!-- Mástil -->
+          <rect class="guitar-neck" x="140" y="10" width="20" height="50"></rect>
+          
+          <!-- Clavijero -->
+          <path class="guitar-head" d="M130,10 L170,10 L170,20 L160,25 L140,25 L120,20 L130,10 Z"></path>
+          
+          <!-- Clavijas -->
+          <g class="guitar-tuners">
+            <circle class="guitar-tuner" cx="135" cy="15" r="2"></circle>
+            <circle class="guitar-tuner" cx="145" cy="15" r="2"></circle>
+            <circle class="guitar-tuner" cx="155" cy="15" r="2"></circle>
+            <circle class="guitar-tuner" cx="165" cy="15" r="2"></circle>
+            <circle class="guitar-tuner" cx="125" cy="15" r="2"></circle>
+            <circle class="guitar-tuner" cx="115" cy="15" r="2"></circle>
+          </g>
+          
+          <!-- Cuerdas -->
+          <path class="guitar-string string-1" id="string-1" d="M115,15 L140,60 L140,120"></path>
+          <path class="guitar-string string-2" id="string-2" d="M125,15 L142,60 L142,120"></path>
+          <path class="guitar-string string-3" id="string-3" d="M135,15 L144,60 L144,120"></path>
+          <path class="guitar-string string-4" id="string-4" d="M145,15 L146,60 L146,120"></path>
+          <path class="guitar-string string-5" id="string-5" d="M155,15 L148,60 L148,120"></path>
+          <path class="guitar-string string-6" id="string-6" d="M165,15 L150,60 L150,120"></path>
+        </svg>
+        
+        <!-- Partículas para efecto de éxito -->
+        <div class="particles" id="particles"></div>
+      </div>
+
+      <!-- Display del afinador -->
+      <div class="tuner-display">
+        <div class="meter-container">
+          <canvas id="tuner-meter" width="300" height="150"></canvas>
+        </div>
+        
+        <div class="note-display">
+          <span class="current-note" id="current-note">-</span>
+          <span class="frequency" id="frequency"></span>
+        </div>
+        
+        <div class="tuning-status status-neutral" id="tuning-status">
+          Toca una cuerda
+        </div>
+        
+        <div class="target-note" id="target-note">
+          Afinando a E (82.41 Hz)
+        </div>
+      </div>
+
+      <!-- Controles -->
+      <div class="controls">
+        <button class="btn btn-primary" id="start-btn">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+          Iniciar
+        </button>
+        
+        <button class="btn btn-outline" id="reset-btn" disabled>
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+          </svg>
+          Reiniciar
+        </button>
+      </div>
+
+      <!-- Mensaje de error (oculto por defecto) -->
+      <div class="error-message" id="error-message" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elementos del DOM
+      const startBtn = document.getElementById('start-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const currentNoteEl = document.getElementById('current-note');
+      const frequencyEl = document.getElementById('frequency');
+      const tuningStatusEl = document.getElementById('tuning-status');
+      const targetNoteEl = document.getElementById('target-note');
+      const errorMessageEl = document.getElementById('error-message');
+      const tunerMeter = document.getElementById('tuner-meter');
+      const stringButtons = document.querySelectorAll('.string-button');
+      const particles = document.getElementById('particles');
+      
+      // Contexto del canvas
+      const meterCtx = tunerMeter.getContext('2d');
+      
+      // Frecuencias estándar de las cuerdas de guitarra (E2, A2, D3, G3, B3, E4)
+      const GUITAR_STRINGS = [
+        { name: "E", frequency: 82.41, number: 6 },
+        { name: "A", frequency: 110.0, number: 5 },
+        { name: "D", frequency: 146.83, number: 4 },
+        { name: "G", frequency: 196.0, number: 3 },
+        { name: "B", frequency: 246.94, number: 2 },
+        { name: "E", frequency: 329.63, number: 1 }
+      ];
+      
+      // Estado del afinador
+      let isListening = false;
+      let currentFrequency = 0;
+      let currentNote = "";
+      let tuningStatus = "neutral"; // "low", "high", "correct", "neutral"
+      let selectedString = GUITAR_STRINGS[0];
+      
+      // Referencias para el análisis de audio
+      let audioContext = null;
+      let analyser = null;
+      let source = null;
+      let animationFrame = null;
+      
+      // Ajustar el tamaño del canvas
+      function resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = tunerMeter.getBoundingClientRect();
+        
+        tunerMeter.width = rect.width * dpr;
+        tunerMeter.height = rect.height * dpr;
+        meterCtx.scale(dpr, dpr);
+      }
+      
+      // Inicializar el afinador
+      function init() {
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Configurar los botones de selección de cuerda
+        stringButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            stringButtons.forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+            
+            const stringNumber = parseInt(this.dataset.string);
+            selectedString = GUITAR_STRINGS.find(s => s.number === stringNumber);
+            
+            updateTargetNote();
+          });
+        });
+        
+        // Configurar botones de control
+        startBtn.addEventListener('click', toggleListening);
+        resetBtn.addEventListener('click', resetTuner);
+        
+        // Crear partículas
+        createParticles();
+      }
+      
+      // Alternar entre iniciar y detener el afinador
+      function toggleListening() {
+        if (isListening) {
+          stopListening();
+        } else {
+          startListening();
+        }
+      }
+      
+      // Iniciar el análisis de audio
+      async function startListening() {
+        try {
+          hideError();
+          
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          
+          // Crear contexto de audio si no existe
+          if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          
+          // Crear analizador
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 2048;
+          
+          // Conectar fuente de audio
+          source = audioContext.createMediaStreamSource(stream);
+          source.connect(analyser);
+          
+          isListening = true;
+          updateUI();
+          
+          // Iniciar análisis
+          analyzeAudio();
+        } catch (err) {
+          console.error("Error accessing microphone:", err);
+          showError("No se pudo acceder al micrófono. Por favor, verifica los permisos.");
+        }
+      }
+      
+      // Detener el análisis de audio
+      function stopListening() {
+        if (animationFrame) {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        }
+        
+        if (source) {
+          source.disconnect();
+          source = null;
+        }
+        
+        isListening = false;
+        currentFrequency = 0;
+        currentNote = "";
+        tuningStatus = "neutral";
+        
+        updateUI();
+      }
+      
+      // Reiniciar el afinador
+      function resetTuner() {
+        if (isListening) {
+          stopListening();
+          setTimeout(startListening, 100);
+        }
+      }
+      
+      // Analizar el audio en tiempo real
+      function analyzeAudio() {
+        if (!analyser) return;
+        
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        
+        const updatePitch = () => {
+          analyser.getByteTimeDomainData(dataArray);
+          
+          // Algoritmo de detección de frecuencia usando autocorrelación
+          const frequency = detectPitch(dataArray, audioContext.sampleRate);
+          
+          if (frequency > 0) {
+            currentFrequency = Math.round(frequency * 10) / 10;
+            
+            // Determinar la nota más cercana
+            currentNote = getNoteFromFrequency(frequency);
+            
+            // Determinar el estado de afinación
+            if (Math.abs(frequency - selectedString.frequency) < 1) {
+              tuningStatus = "correct";
+              showParticles();
+            } else if (frequency < selectedString.frequency) {
+              tuningStatus = "low";
+              hideParticles();
+            } else {
+              tuningStatus = "high";
+              hideParticles();
+            }
+            
+            // Animar la cuerda seleccionada
+            animateString(selectedString.number);
+            
+            updateUI();
+          }
+          
+          animationFrame = requestAnimationFrame(updatePitch);
+        };
+        
+        updatePitch();
+      }
+      
+      // Detectar la frecuencia usando autocorrelación
+      function detectPitch(buffer, sampleRate) {
+        // Convertir de Uint8Array a valores flotantes entre -1 y 1
+        const floatBuffer = new Float32Array(buffer.length);
+        for (let i = 0; i < buffer.length; i++) {
+          floatBuffer[i] = (buffer[i] - 128) / 128;
+        }
+        
+        // Autocorrelación
+        const correlations = new Float32Array(buffer.length);
+        for (let lag = 0; lag < correlations.length; lag++) {
+          let sum = 0;
+          for (let i = 0; i < correlations.length - lag; i++) {
+            sum += floatBuffer[i] * floatBuffer[i + lag];
+          }
+          correlations[lag] = sum;
+        }
+        
+        // Encontrar el primer pico significativo después del lag 0
+        let maxCorrelation = 0;
+        let maxLag = 0;
+        
+        // Ignorar los primeros valores para evitar falsos positivos
+        const minLag = Math.floor(sampleRate / 1000); // Ignorar frecuencias superiores a 1000Hz
+        
+        for (let lag = minLag; lag < correlations.length / 2; lag++) {
+          if (correlations[lag] > maxCorrelation) {
+            maxCorrelation = correlations[lag];
+            maxLag = lag;
+          }
+        }
+        
+        // Si la correlación es demasiado baja, no hay una frecuencia clara
+        if (maxCorrelation < 0.1) return 0;
+        
+        // Convertir el lag a frecuencia
+        return sampleRate / maxLag;
+      }
+      
+      // Obtener la nota más cercana a una frecuencia
+      function getNoteFromFrequency(frequency) {
+        // Encontrar la cuerda más cercana
+        let closestString = GUITAR_STRINGS[0];
+        let minDifference = Math.abs(frequency - GUITAR_STRINGS[0].frequency);
+        
+        for (const guitarString of GUITAR_STRINGS) {
+          const difference = Math.abs(frequency - guitarString.frequency);
+          if (difference < minDifference) {
+            minDifference = difference;
+            closestString = guitarString;
+          }
+        }
+        
+        return closestString.name;
+      }
+      
+      // Actualizar la interfaz de usuario
+      function updateUI() {
+        // Actualizar botones
+        if (isListening) {
+          startBtn.classList.remove('btn-primary');
+          startBtn.classList.add('btn-danger');
+          startBtn.innerHTML = `
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+              <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+              <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            Detener
+          `;
+          resetBtn.disabled = false;
+        } else {
+          startBtn.classList.remove('btn-danger');
+          startBtn.classList.add('btn-primary');
+          startBtn.innerHTML = `
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            Iniciar
+          `;
+          resetBtn.disabled = true;
+        }
+        
+        // Actualizar nota y frecuencia
+        currentNoteEl.textContent = currentNote || "-";
+        frequencyEl.textContent = currentFrequency > 0 ? `${currentFrequency} Hz` : "";
+        
+        // Actualizar estado de afinación
+        tuningStatusEl.className = "tuning-status";
+        
+        if (tuningStatus === "low") {
+          tuningStatusEl.classList.add("status-low");
+          tuningStatusEl.textContent = "Afina más alto";
+        } else if (tuningStatus === "high") {
+          tuningStatusEl.classList.add("status-high");
+          tuningStatusEl.textContent = "Afina más bajo";
+        } else if (tuningStatus === "correct") {
+          tuningStatusEl.classList.add("status-correct");
+          tuningStatusEl.textContent = "¡Afinado correctamente!";
+        } else {
+          tuningStatusEl.classList.add("status-neutral");
+          tuningStatusEl.textContent = "Toca una cuerda";
+        }
+        
+        // Actualizar el medidor
+        drawMeter();
+        
+        // Actualizar colores de las cuerdas
+        updateStringColors();
+      }
+      
+      // Actualizar la nota objetivo
+      function updateTargetNote() {
+        targetNoteEl.textContent = `Afinando a ${selectedString.name} (${selectedString.frequency} Hz)`;
+        updateStringColors();
+      }
+      
+      // Dibujar el medidor de afinación
+      function drawMeter() {
+        const canvas = tunerMeter;
+        const ctx = meterCtx;
+        const width = canvas.width / window.devicePixelRatio;
+        const height = canvas.height / window.devicePixelRatio;
+        
+        // Limpiar el canvas
+        ctx.clearRect(0, 0, width, height);
+        
+        // Dibujar el arco de fondo
+        const centerX = width / 2;
+        const centerY = height - 10;
+        const radius = height - 30;
+        
+        // Arco de fondo
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, Math.PI, 0, false);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "#27272a"; // zinc-800
+        ctx.stroke();
+        
+        // No dibujar el indicador si no hay frecuencia
+        if (currentFrequency <= 0) return;
+        
+        // Calcular la posición del indicador
+        let angle = Math.PI;
+        
+        if (tuningStatus === "neutral") {
+          angle = Math.PI / 2;
+        } else {
+          // Calcular la diferencia en cents (100 cents = 1 semitono)
+          const centDifference = 1200 * Math.log2(currentFrequency / selectedString.frequency);
+          
+          // Limitar la diferencia a +/- 100 cents para la visualización
+          const limitedDifference = Math.max(-100, Math.min(100, centDifference));
+          
+          // Mapear la diferencia a un ángulo entre 0 y PI
+          angle = Math.PI - (limitedDifference + 100) * (Math.PI / 200);
+        }
+        
+        // Dibujar el arco coloreado
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, Math.PI, angle, false);
+        ctx.lineWidth = 10;
+        
+        // Color según el estado de afinación
+        if (tuningStatus === "low") {
+          ctx.strokeStyle = "#3b82f6"; // blue
+        } else if (tuningStatus === "high") {
+          ctx.strokeStyle = "#ef4444"; // red
+        } else if (tuningStatus === "correct") {
+          ctx.strokeStyle = "#10b981"; // green
+        } else {
+          ctx.strokeStyle = "#6b7280"; // gray
+        }
+        
+        ctx.stroke();
+        
+        // Dibujar el indicador (círculo)
+        const indicatorX = centerX + radius * Math.cos(angle);
+        const indicatorY = centerY - radius * Math.sin(angle);
+        
+        ctx.beginPath();
+        ctx.arc(indicatorX, indicatorY, 15, 0, 2 * Math.PI);
+        ctx.fillStyle = ctx.strokeStyle;
+        ctx.fill();
+      }
+      
+      // Actualizar los colores de las cuerdas
+      function updateStringColors() {
+        // Restablecer todas las cuerdas a color normal
+        for (let i = 1; i <= 6; i++) {
+          const stringElement = document.getElementById(`string-${i}`);
+          stringElement.style.stroke = "#d4d4d8"; // zinc-300
+        }
+        
+        // Colorear la cuerda seleccionada según el estado
+        const selectedStringElement = document.getElementById(`string-${selectedString.number}`);
+        
+        if (tuningStatus === "low") {
+          selectedStringElement.style.stroke = "#3b82f6"; // blue-500
+        } else if (tuningStatus === "high") {
+          selectedStringElement.style.stroke = "#ef4444"; // red-500
+        } else if (tuningStatus === "correct") {
+          selectedStringElement.style.stroke = "#10b981"; // emerald-500
+        }
+      }
+      
+      // Animar la cuerda seleccionada
+      function animateString(stringNumber) {
+        const stringElement = document.getElementById(`string-${stringNumber}`);
+        if (!stringElement) return;
+        
+        // Crear animación de vibración para la cuerda
+        const amplitude = 2; // Amplitud de la vibración
+        let step = 0;
+        
+        const animate = () => {
+          if (step > 100) {
+            stringElement.style.transform = "";
+            return;
+          }
+          
+          // Calcular el desplazamiento basado en una función sinusoidal amortiguada
+          const displacement = amplitude * Math.sin(step * 0.4) * Math.exp(-step * 0.03);
+          
+          // Aplicar transformación
+          stringElement.style.transform = `translateY(${displacement}px)`;
+          
+          step++;
+          setTimeout(animate, 10);
+        };
+        
+        animate();
+      }
+      
+      // Crear partículas para el efecto de éxito
+      function createParticles() {
+        for (let i = 0; i < 10; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particles.appendChild(particle);
+        }
+      }
+      
+      // Mostrar partículas
+      function showParticles() {
+        particles.classList.add('active');
+        
+        const particleElements = particles.querySelectorAll('.particle');
+        particleElements.forEach((particle, index) => {
+          // Posición inicial (centro de la guitarra)
+          const x = 140;
+          const y = 120;
+          
+          // Posición final (aleatoria alrededor del centro)
+          const endX = x + (Math.random() * 100 - 50);
+          const endY = y + (Math.random() * 100 - 50);
+          
+          // Configurar animación
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          
+          // Reiniciar animación
+          particle.style.animation = 'none';
+          particle.offsetHeight; // Forzar reflow
+          
+          // Aplicar nueva animación
+          particle.style.animation = `
+            particle-fade-in 0.2s ease forwards,
+            particle-move ${1 + Math.random()}s ease-out infinite alternate
+          `;
+          
+          // Establecer propiedades personalizadas para la animación
+          particle.style.setProperty('--end-x', `${endX}px`);
+          particle.style.setProperty('--end-y', `${endY}px`);
+          particle.style.animationDelay = `${Math.random() * 0.5}s`;
+          
+          // Añadir regla de animación si no existe
+          if (!document.querySelector('style#particle-animations')) {
+            const style = document.createElement('style');
+            style.id = 'particle-animations';
+            style.textContent = `
+              @keyframes particle-fade-in {
+                from { opacity: 0; transform: scale(0); }
+                to { opacity: 1; transform: scale(${Math.random() * 1.5}); }
+              }
+              
+              @keyframes particle-move {
+                from { transform: translate(0, 0) scale(${Math.random() * 1.5}); }
+                to { transform: translate(
+                  calc(var(--end-x) - ${x}px), 
+                  calc(var(--end-y) - ${y}px)
+                ) scale(0); }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+        });
+      }
+      
+      // Ocultar partículas
+      function hideParticles() {
+        particles.classList.remove('active');
+      }
+      
+      // Mostrar mensaje de error
+      function showError(message) {
+        errorMessageEl.textContent = message;
+        errorMessageEl.style.display = 'block';
+      }
+      
+      // Ocultar mensaje de error
+      function hideError() {
+        errorMessageEl.style.display = 'none';
+      }
+      
+      // Inicializar la aplicación
+      init();
+    });
+  </script>
+</body>
+</html>
