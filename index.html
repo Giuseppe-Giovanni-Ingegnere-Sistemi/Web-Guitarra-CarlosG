@@ -652,7 +652,13 @@
         <a href="Afinador.html">Afinador</a>
       </nav>
 
+      <a href="carrito.html" class="button button-outline" style="display: flex; align-items: center; gap: 0.5rem;">
+        🛒 Carrito
+      </a>
+
       <button class="button">Acceder a Academia</button>
+
+      
     </div>
   </header>
 
@@ -811,7 +817,7 @@
           <!-- Curso 1 -->
           <div class="card fade-in">
             <div class="card-image">
-              <img src="src/img/Guitarra1.png" alt="Guitarra para Principiantes">
+              <img src="src/img/Armonía1.png" alt="Guitarra para Principiantes">
               <span class="badge">Principiante</span>
               <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
                 <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
@@ -822,7 +828,7 @@
               </div>
             </div>
             <div class="card-content">
-              <h3 class="card-title">Guitarra para Principiantes</h3>
+              <h3 class="card-title">Armonia 1</h3>
               <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
               <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
                 <span>Instructor: Carlos Gallardo</span>
@@ -830,17 +836,41 @@
             </div>
             <div class="card-footer">
               <span class="price">$49.99</span>
-              <button class="button">Comprar Curso</button>
+              <button class="button" onclick="agregarAlCarrito('Curso XYZ', 49.99)">Comprar Curso</button>
             </div>
           </div>
 
-          <!-- Curso 2 -->
-         
+          
+         <!-- Curso 2 -->
+         <div class="card fade-in">
+          <div class="card-image">
+            <img src="src/img/Armonía2.png" alt="Guitarra para Principiantes">
+            <span class="badge">Principiante</span>
+            <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+              <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Armonia 2 </h3>
+            <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+            <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+              <span>Instructor: Carlos Gallardo</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="price">$49.99</span>
+            <button class="button">Comprar Curso</button>
+          </div>
+        </div>
 
           <!-- Curso 3 -->
           <div class="card fade-in">
             <div class="card-image">
-              <img src="src/img/Guitarra3.png" alt="Técnicas Avanzadas de Guitarra">
+              <img src="src/img/Armonía3.png" alt="Técnicas Avanzadas de Guitarra">
               <span class="badge">Avanzado</span>
               <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
                 <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
@@ -851,7 +881,7 @@
               </div>
             </div>
             <div class="card-content">
-              <h3 class="card-title">Técnicas Avanzadas de Guitarra</h3>
+              <h3 class="card-title">Armonía 3</h3>
               <p class="card-description">Domina técnicas profesionales de guitarra</p>
               <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
                 <span>Instructor: Carlos Martínez</span>
@@ -866,7 +896,7 @@
           <!-- Curso 4 -->
           <div class="card fade-in">
             <div class="card-image">
-              <img src="src/img/Guitarra2.png" alt="Aprende a tocar tus canciones favoritas">
+              <img src="src/img/Composicion1.png" alt="Aprende a tocar tus canciones favoritas">
               <span class="badge">Intermedio</span>
               <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
                 <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
@@ -877,7 +907,7 @@
               </div>
             </div>
             <div class="card-content">
-              <h3 class="card-title">Aprende a tocar tus canciones favoritas</h3>
+              <h3 class="card-title">Composicion 1</h3>
               <p class="card-description">Método práctico para tocar canciones populares</p>
               <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
                 <span>Instructor: Carlos Gallardo</span>
@@ -887,9 +917,253 @@
               <span class="price">$44.99</span>
               <button class="button">Comprar Curso</button>
             </div>
+
           </div>
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Composición2.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Composición 2</h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Guitarra1.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Guitarra 1 </h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Guitarra2.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Guitarra 2</h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Guitarra3.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Guitarra 3 </h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Horiz.jpg" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Horiz </h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Lenguaje musical.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Lenguaje Musical</h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Sibelius.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Sibelius </h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Ukulele1.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Ukelele 1 </h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+<div class="card fade-in">
+  <div class="card-image">
+    <img src="src/img/Ukulele2.png" alt="Guitarra para Principiantes">
+    <span class="badge">Principiante</span>
+    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
+      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Ukelele 2 </h3>
+    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
+    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
+      <span>Instructor: Carlos Gallardo</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="price">$49.99</span>
+    <button class="button">Comprar Curso</button>
+  </div>
+</div>
+
+<!-- Curso 1 -->
+
+
         </div>
       </div>
+
+
+          
+
+
+
     </section>
 
     <!-- Tutoriales Gratuitos -->
@@ -1095,7 +1369,16 @@
         }
       });
     });
-    
+    function agregarAlCarrito(titulo, precio) {
+    let carrito = JSON.parse(localStorage.getItem('carritoCursos')) || [];
+    if (!carrito.some(item => item.title === titulo)) {
+      carrito.push({ title: titulo, price: precio });
+      localStorage.setItem('carritoCursos', JSON.stringify(carrito));
+      alert('Curso agregado al carrito.');
+    } else {
+      alert('Este curso ya está en tu carrito.');
+    }
+  }
     // Current year for copyright
     document.querySelector('.footer-copyright p').innerHTML = 
       `© ${new Date().getFullYear()} Academia Musical. Todos los derechos reservados.`;
