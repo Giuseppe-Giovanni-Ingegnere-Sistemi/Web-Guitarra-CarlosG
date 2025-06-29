@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Academia Musical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a202c;
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo svg {
+            color: #e53e3e;
+        }
+
+        nav {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+            }
+            .mobile-menu-button {
+                display: none;
+            }
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #e53e3e;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #e53e3e;
+            color: white;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .button:hover {
+            background-color: #c53030;
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+
+        .button-outline:hover {
+            background-color: #f7fafc;
+        }
+
+        .button-small {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            background-color: white;
+            padding-top: 64px;
+            display: none;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .mobile-menu-nav a {
+            font-size: 1.125rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Main content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .blog-layout {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .blog-layout {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* Search and filters */
+        .blog-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .blog-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .search-button {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-filter {
+            padding: 0.5rem 1rem;
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-filter:hover, .category-filter.active {
+            background-color: #e53e3e;
+            color: white;
+            border-color: #e53e3e;
+        }
+
+        /* Blog posts */
+        .blog-posts {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-post-content {
+            padding: 1.5rem;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .blog-post-category {
+            background-color: #e53e3e;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .blog-post-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #1a202c;
+        }
+
+        .blog-post-excerpt {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .blog-post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .read-more {
+            color: #e53e3e;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .blog-post-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-widget h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .popular-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .popular-post {
+            display: flex;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .popular-post:hover {
+            opacity: 0.8;
+        }
+
+        .popular-post-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 0.375rem;
+            flex-shrink: 0;
+        }
+
+        .popular-post-content {
+            flex: 1;
+        }
+
+        .popular-post-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1a202c;
+            line-height: 1.4;
+        }
+
+        .popular-post-date {
+            font-size: 0.75rem;
+            color: #4a5568;
+        }
+
+        .categories-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .category-item:hover {
+            background-color: #f7fafc;
+        }
+
+        .category-name {
+            font-size: 0.875rem;
+            color: #1a202c;
+        }
+
+        .category-count {
+            font-size: 0.75rem;
+            color: #4a5568;
+            background-color: #e2e8f0;
+            padding: 0.125rem 0.5rem;
+            border-radius: 1rem;
+        }
+
+        /* Article view */
+        .article-view {
+            display: none;
+        }
+
+        .article-view.active {
+            display: block;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            color: #1a202c;
+        }
+
+        .article-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: #1a202c;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #e53e3e;
+            padding-left: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #4a5568;
+        }
+
+        .back-to-blog {
+            margin-bottom: 2rem;
+        }
+
+        /* Comments section */
+        .comments-section {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .comments-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .comment-date {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .comment-content {
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .comment-form {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Utilities */
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .article-title {
+                font-size: 1.5rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="flex items-center gap-2">
+                <button class="mobile-menu-button button button-outline" id="mobile-menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <a href="index.html" class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3v14"></path>
+                        <path d="M19 7v14"></path>
+                        <path d="M5 10v14"></path>
+                        <path d="M5 10a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v7"></path>
+                    </svg>
+                    <span>Academia Musical</span>
+                </a>
+            </div>
+
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="index.html#cursos">Cursos</a>
+                <a href="index.html#tutoriales">Tutoriales</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="button">Volver a Academia</a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <nav class="mobile-menu-nav">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#cursos">Cursos</a>
+                <a href="index.html#tutoriales">Tutoriales</a>
+                <a href="blog.html">Blog</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog List View -->
+    <div id="blog-list-view">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="fade-in">Blog Musical</h1>
+                <p class="fade-in">Descubre consejos, técnicas y secretos para mejorar tu técnica musical</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Search and Filters -->
+                <div class="blog-controls fade-in">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Buscar artículos..." id="search-input">
+                        <button class="search-button" onclick="searchArticles()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="category-filters">
+                        <span class="category-filter active" data-category="all">Todos</span>
+                        <span class="category-filter" data-category="tecnica">Técnica</span>
+                        <span class="category-filter" data-category="teoria">Teoría</span>
+                        <span class="category-filter" data-category="equipos">Equipos</span>
+                        <span class="category-filter" data-category="consejos">Consejos</span>
+                    </div>
+                </div>
+
+                <div class="blog-layout">
+                    <!-- Blog Posts -->
+                    <div class="blog-posts" id="blog-posts">
+                        <!-- Posts will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <!-- Popular Posts -->
+                        <div class="sidebar-widget fade-in">
+                            <h3>Artículos Populares</h3>
+                            <div class="popular-posts" id="popular-posts">
+                                <!-- Popular posts will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="sidebar-widget fade-in">
+                            <h3>Categorías</h3>
+                            <div class="categories-list">
+                                <div class="category-item" data-category="tecnica">
+                                    <span class="category-name">Técnica</span>
+                                    <span class="category-count">8</span>
+                                </div>
+                                <div class="category-item" data-category="teoria">
+                                    <span class="category-name">Teoría Musical</span>
+                                    <span class="category-count">6</span>
+                                </div>
+                                <div class="category-item" data-category="equipos">
+                                    <span class="category-name">Equipos</span>
+                                    <span class="category-count">4</span>
+                                </div>
+                                <div class="category-item" data-category="consejos">
+                                    <span class="category-name">Consejos</span>
+                                    <span class="category-count">5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="sidebar-widget fade-in">
+                            <h3>Suscríbete</h3>
+                            <p style="margin-bottom: 1rem; font-size: 0.875rem; color: #4a5568;">Recibe los mejores consejos musicales en tu email</p>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <input type="email" placeholder="Tu email" class="form-input" id="newsletter-email">
+                                <button class="button" onclick="subscribeNewsletter()">Suscribirse</button>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Article View -->
+    <div id="article-view" class="article-view">
+        <main class="main-content">
+            <div class="container">
+                <div class="back-to-blog">
+                    <button class="button button-outline" onclick="showBlogList()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        Volver al Blog
+                    </button>
+                </div>
+
+                <article id="current-article">
+                    <!-- Article content will be populated by JavaScript -->
+                </article>
+
+                <!-- Comments Section -->
+                <section class="comments-section">
+                    <h3 class="comments-title">Comentarios (3)</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">María González</span>
+                            <span class="comment-date">Hace 2 días</span>
+                        </div>
+                        <div class="comment-content">
+                            ¡Excelente artículo! Me ha ayudado mucho a entender mejor estos conceptos. Gracias por compartir tu conocimiento.
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">Carlos Ruiz</span>
+                            <span class="comment-date">Hace 1 semana</span>
+                        </div>
+                        <div class="comment-content">
+                            Muy útil la información. ¿Podrías hacer un artículo sobre técnicas de fingerpicking más avanzadas?
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">Ana Martín</span>
+                            <span class="comment-date">Hace 2 semanas</span>
+                        </div>
+                        <div class="comment-content">
+                            Como principiante, este tipo de contenido es oro puro. Sigue así, Carlos!
+                        </div>
+                    </div>
+
+                    <!-- Comment Form -->
+                    <div class="comment-form">
+                        <h4 style="margin-bottom: 1rem;">Deja tu comentario</h4>
+                        <form onsubmit="submitComment(event)">
+                            <div class="form-group">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Comentario</label>
+                                <textarea class="form-textarea" required></textarea>
+                            </div>
+                            <button type="submit" class="button">Publicar Comentario</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Academia Musical. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Blog data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "10 Técnicas Esenciales para Mejorar tu Técnica de Guitarra",
+                excerpt: "Descubre las técnicas fundamentales que todo guitarrista debe dominar para llevar su interpretación al siguiente nivel.",
+                content: `
+                    <p>La guitarra es uno de los instrumentos más versátiles y expresivos que existen. Sin embargo, dominar su técnica requiere dedicación, práctica constante y conocimiento de las técnicas fundamentales.</p>
+                    
+                    <h2>1. Postura Correcta</h2>
+                    <p>La base de una buena técnica comienza con una postura adecuada. Mantén la espalda recta, los hombros relajados y la guitarra en una posición que te permita acceder cómodamente a todas las cuerdas.</p>
+                    
+                    <h2>2. Técnica de Púa</h2>
+                    <p>El manejo correcto de la púa es fundamental. Sostén la púa firmemente pero sin tensión excesiva, y practica movimientos alternos (arriba-abajo) para desarrollar velocidad y precisión.</p>
+                    
+                    <h2>3. Digitación de Mano Izquierda</h2>
+                    <p>Cada dedo tiene su función específica. Practica ejercicios de independencia digital para mejorar la coordinación y fuerza de tus dedos.</p>
+                    
+                    <blockquote>
+                        "La práctica no hace la perfección. La práctica perfecta hace la perfección." - Vince Lombardi
+                    </blockquote>
+                    
+                    <h2>4. Escalas Fundamentales</h2>
+                    <p>Domina las escalas pentatónicas, mayores y menores. Son la base de la improvisación y te ayudarán a entender mejor la música.</p>
+                    
+                    <h2>Conclusión</h2>
+                    <p>Recuerda que el progreso en la guitarra es un proceso gradual. Sé paciente contigo mismo y disfruta del viaje de aprendizaje.</p>
+                `,
+                category: "tecnica",
+                author: "Carlos Gallardo",
+                date: "2024-01-15",
+                readTime: "8 min",
+                views: 1250,
+                likes: 89,
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=400&fit=crop"
+            },
+            {
+                id: 2,
+                title: "Teoría Musical Básica: Intervalos y Acordes",
+                excerpt: "Aprende los fundamentos de la teoría musical que te ayudarán a entender mejor la música y mejorar tu interpretación.",
+                content: `
+                    <p>La teoría musical es el lenguaje que nos permite entender cómo funciona la música. Aunque puedes tocar sin conocerla, entender estos conceptos te abrirá un mundo de posibilidades.</p>
+                    
+                    <h2>¿Qué son los Intervalos?</h2>
+                    <p>Un intervalo es la distancia entre dos notas. Los intervalos más importantes son:</p>
+                    <ul>
+                        <li>Unísono (0 semitonos)</li>
+                        <li>Segunda menor (1 semitono)</li>
+                        <li>Segunda mayor (2 semitonos)</li>
+                        <li>Tercera menor (3 semitonos)</li>
+                        <li>Tercera mayor (4 semitonos)</li>
+                    </ul>
+                    
+                    <h2>Construcción de Acordes</h2>
+                    <p>Los acordes se construyen superponiendo intervalos de tercera. Un acorde mayor se forma con:</p>
+                    <ul>
+                        <li>Fundamental</li>
+                        <li>Tercera mayor</li>
+                        <li>Quinta justa</li>
+                    </ul>
+                    
+                    <h2>Aplicación Práctica</h2>
+                    <p>Conocer la teoría te permite improvisar con más confianza y entender por qué ciertas combinaciones de notas suenan bien juntas.</p>
+                `,
+                category: "teoria",
+                author: "Carlos Gallardo",
+                date: "2024-01-12",
+                readTime: "6 min",
+                views: 980,
+                likes: 67,
+                image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&h=400&fit=crop"
+            },
+            {
+                id: 3,
+                title: "Cómo Elegir tu Primera Guitarra: Guía Completa",
+                excerpt: "Todo lo que necesitas saber para elegir la guitarra perfecta para comenzar tu viaje musical.",
+                content: `
+                    <p>Elegir tu primera guitarra es una decisión importante que puede influir significativamente en tu experiencia de aprendizaje. Esta guía te ayudará a tomar la mejor decisión.</p>
+                    
+                    <h2>Tipos de Guitarra</h2>
+                    
+                    <h3>Guitarra Clásica</h3>
+                    <p>Ideal para principiantes, tiene cuerdas de nylon que son más suaves para los dedos. Perfecta para música clásica, flamenco y bossa nova.</p>
+                    
+                    <h3>Guitarra Acústica</h3>
+                    <p>Con cuerdas de acero, produce un sonido más brillante. Excelente para folk, country y pop.</p>
+                    
+                    <h3>Guitarra Eléctrica</h3>
+                    <p>Requiere amplificador, pero ofrece gran versatilidad de sonidos. Ideal para rock, blues y jazz.</p>
+                    
+                    <h2>Factores a Considerar</h2>
+                    <ul>
+                        <li><strong>Presupuesto:</strong> Define cuánto quieres invertir</li>
+                        <li><strong>Estilo musical:</strong> ¿Qué tipo de música quieres tocar?</li>
+                        <li><strong>Tamaño:</strong> Especialmente importante para niños</li>
+                        <li><strong>Comodidad:</strong> La guitarra debe sentirse cómoda en tus manos</li>
+                    </ul>
+                    
+                    <h2>Recomendaciones por Presupuesto</h2>
+                    <p><strong>Presupuesto bajo (€100-200):</strong> Yamaha C40, Fender CD-60S</p>
+                    <p><strong>Presupuesto medio (€200-500):</strong> Taylor Academy 10, Martin DX1AE</p>
+                    <p><strong>Presupuesto alto (€500+):</strong> Taylor 814ce, Martin D-28</p>
+                `,
+                category: "equipos",
+                author: "Carlos Gallardo",
+                date: "2024-01-10",
+                readTime: "10 min",
+                views: 1450,
+                likes: 112,
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=400&fit=crop"
+            },
+            {
+                id: 4,
+                title: "5 Errores Comunes que Cometen los Principiantes",
+                excerpt: "Evita estos errores típicos y acelera tu progreso en la guitarra desde el primer día.",
+                content: `
+                    <p>Todos cometemos errores al aprender guitarra, pero conocer los más comunes te ayudará a evitarlos y progresar más rápidamente.</p>
+                    
+                    <h2>1. Mala Postura</h2>
+                    <p>Muchos principiantes desarrollan malos hábitos posturales que pueden causar dolor y limitar su progreso. Mantén siempre una postura erguida y relajada.</p>
+                    
+                    <h2>2. Practicar Solo Canciones</h2>
+                    <p>Aunque es divertido tocar canciones, es importante dedicar tiempo a ejercicios técnicos, escalas y acordes básicos.</p>
+                    
+                    <h2>3. Tocar Demasiado Rápido</h2>
+                    <p>La velocidad viene con la práctica. Es mejor tocar lento y limpio que rápido y sucio. La precisión debe venir antes que la velocidad.</p>
+                    
+                    <h2>4. No Usar Metrónomo</h2>
+                    <p>El timing es crucial en la música. Practica siempre con metrónomo para desarrollar un buen sentido del ritmo.</p>
+                    
+                    <h2>5. Compararse con Otros</h2>
+                    <p>Cada persona aprende a su ritmo. Concéntrate en tu propio progreso y disfruta del proceso de aprendizaje.</p>
+                    
+                    <blockquote>
+                        "El único músico con el que debes competir es con el que eras ayer."
+                    </blockquote>
+                `,
+                category: "consejos",
+                author: "Carlos Gallardo",
+                date: "2024-01-08",
+                readTime: "5 min",
+                views: 890,
+                likes: 73,
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=400&fit=crop"
+            },
+            {
+                id: 5,
+                title: "Fingerpicking: Técnica y Ejercicios para Principiantes",
+                excerpt: "Domina la técnica del fingerpicking con estos ejercicios progresivos y consejos prácticos.",
+                content: `
+                    <p>El fingerpicking es una técnica hermosa que permite tocar melodía y acompañamiento simultáneamente. Aunque puede parecer complejo al principio, con práctica constante puedes dominarlo.</p>
+                    
+                    <h2>Posición de la Mano Derecha</h2>
+                    <p>La mano derecha debe estar relajada, con la muñeca ligeramente arqueada. Los dedos deben tocar las cuerdas con las yemas, no con las uñas.</p>
+                    
+                    <h2>Asignación de Dedos</h2>
+                    <ul>
+                        <li><strong>Pulgar (P):</strong> Cuerdas 6, 5 y 4</li>
+                        <li><strong>Índice (I):</strong> Cuerda 3</li>
+                        <li><strong>Medio (M):</strong> Cuerda 2</li>
+                        <li><strong>Anular (A):</strong> Cuerda 1</li>
+                    </ul>
+                    
+                    <h2>Ejercicio Básico</h2>
+                    <p>Comienza con el patrón P-I-M-A en el acorde de Do mayor. Toca cada nota lentamente y asegúrate de que suene clara.</p>
+                    
+                    <h2>Patrones Comunes</h2>
+                    <p>Una vez domines el patrón básico, prueba estos patrones populares:</p>
+                    <ul>
+                        <li>P-I-M-I</li>
+                        <li>P-I-M-A-M-I</li>
+                        <li>P-M-I-M</li>
+                    </ul>
+                    
+                    <h2>Consejos para la Práctica</h2>
+                    <p>Practica lentamente al principio, mantén los dedos relajados y sé paciente. El fingerpicking requiere tiempo para desarrollar la independencia de los dedos.</p>
+                `,
+                category: "tecnica",
+                author: "Carlos Gallardo",
+                date: "2024-01-05",
+                readTime: "7 min",
+                views: 1120,
+                likes: 95,
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=400&fit=crop"
+            },
+            {
+                id: 6,
+                title: "Los Mejores Amplificadores para Guitarra Eléctrica",
+                excerpt: "Descubre qué amplificador se adapta mejor a tu estilo y presupuesto con esta guía detallada.",
+                content: `
+                    <p>El amplificador es tan importante como la guitarra eléctrica misma. Un buen amplificador puede hacer que una guitarra económica suene increíble, mientras que un mal amplificador puede arruinar el sonido de la mejor guitarra.</p>
+                    
+                    <h2>Tipos de Amplificadores</h2>
+                    
+                    <h3>Amplificadores de Tubo</h3>
+                    <p>Ofrecen el sonido más cálido y natural. Son los preferidos por muchos profesionales, especialmente para blues, rock clásico y jazz.</p>
+                    
+                    <h3>Amplificadores de Estado Sólido</h3>
+                    <p>Más económicos y confiables. Ideales para principiantes y para estilos que requieren sonidos limpios y precisos.</p>
+                    
+                    <h3>Amplificadores Híbridos</h3>
+                    <p>Combinan lo mejor de ambos mundos: el calor de los tubos con la confiabilidad del estado sólido.</p>
+                    
+                    <h2>Potencia y Tamaño</h2>
+                    <p>Para práctica en casa: 5-15 watts</p>
+                    <p>Para ensayos: 15-30 watts</p>
+                    <p>Para conciertos: 50+ watts</p>
+                    
+                    <h2>Recomendaciones</h2>
+                    <p><strong>Principiantes:</strong> Fender Champion 20, Boss Katana 50</p>
+                    <p><strong>Intermedio:</strong> Vox AC15, Fender Blues Junior</p>
+                    <p><strong>Profesional:</strong> Marshall JCM800, Fender Twin Reverb</p>
+                `,
+                category: "equipos",
+                author: "Carlos Gallardo",
+                date: "2024-01-03",
+                readTime: "9 min",
+                views: 756,
+                likes: 58,
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=400&fit=crop"
+            }
+        ];
+
+        // Current state
+        let currentCategory = 'all';
+        let currentSearchTerm = '';
+
+        // Initialize blog
+        document.addEventListener('DOMContentLoaded', function() {
+            renderBlogPosts();
+            renderPopularPosts();
+            initializeEventListeners();
+            initAnimations();
+        });
+
+        // Event listeners
+        function initializeEventListeners() {
+            // Mobile menu
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            
+            // Category filters
+            document.querySelectorAll('.category-filter').forEach(filter => {
+                filter.addEventListener('click', function() {
+                    document.querySelectorAll('.category-filter').forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    renderBlogPosts();
+                });
+            });
+
+            // Sidebar categories
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    document.querySelectorAll('.category-filter').forEach(f => f.classList.remove('active'));
+                    document.querySelector(`[data-category="${category}"]`).classList.add('active');
+                    currentCategory = category;
+                    renderBlogPosts();
+                });
+            });
+
+            // Search
+            document.getElementById('search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchArticles();
+                }
+            });
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const button = document.getElementById('mobile-menu-button');
+            
+            mobileMenu.classList.toggle('open');
+            
+            if (mobileMenu.classList.contains('open')) {
+                button.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                `;
+            } else {
+                button.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                `;
+            }
+        }
+
+        // Search functionality
+        function searchArticles() {
+            currentSearchTerm = document.getElementById('search-input').value.toLowerCase();
+            renderBlogPosts();
+        }
+
+        // Filter posts
+        function getFilteredPosts() {
+            let filteredPosts = blogPosts;
+
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filteredPosts = filteredPosts.filter(post => post.category === currentCategory);
+            }
+
+            // Filter by search term
+            if (currentSearchTerm) {
+                filteredPosts = filteredPosts.filter(post => 
+                    post.title.toLowerCase().includes(currentSearchTerm) ||
+                    post.excerpt.toLowerCase().includes(currentSearchTerm)
+                );
+            }
+
+            return filteredPosts;
+        }
+
+        // Render blog posts
+        function renderBlogPosts() {
+            const postsContainer = document.getElementById('blog-posts');
+            const filteredPosts = getFilteredPosts();
+
+            if (filteredPosts.length === 0) {
+                postsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #4a5568;">
+                        <p>No se encontraron artículos que coincidan con tu búsqueda.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            postsContainer.innerHTML = filteredPosts.map(post => `
+                <article class="blog-post fade-in" onclick="showArticle(${post.id})">
+                    <img src="${post.image}" alt="${post.title}" class="blog-post-image">
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-category">${getCategoryName(post.category)}</span>
+                            <span>${formatDate(post.date)}</span>
+                            <span>${post.readTime} lectura</span>
+                        </div>
+                        <h2 class="blog-post-title">${post.title}</h2>
+                        <p class="blog-post-excerpt">${post.excerpt}</p>
+                        <div class="blog-post-footer">
+                            <a href="#" class="read-more">Leer más →</a>
+                            <div class="blog-post-stats">
+                                <span>${post.views} vistas</span>
+                                <span>${post.likes} likes</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+
+            // Re-initialize animations
+            setTimeout(initAnimations, 100);
+        }
+
+        // Render popular posts
+        function renderPopularPosts() {
+            const popularContainer = document.getElementById('popular-posts');
+            const popularPosts = blogPosts
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 4);
+
+            popularContainer.innerHTML = popularPosts.map(post => `
+                <div class="popular-post" onclick="showArticle(${post.id})">
+                    <img src="${post.image}" alt="${post.title}" class="popular-post-image">
+                    <div class="popular-post-content">
+                        <h4 class="popular-post-title">${post.title}</h4>
+                        <span class="popular-post-date">${formatDate(post.date)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show individual article
+        function showArticle(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            const articleContainer = document.getElementById('current-article');
+            articleContainer.innerHTML = `
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="blog-post-category">${getCategoryName(post.category)}</span>
+                        <span>Por ${post.author}</span>
+                        <span>${formatDate(post.date)}</span>
+                        <span>${post.readTime} lectura</span>
+                    </div>
+                    <h1 class="article-title">${post.title}</h1>
+                </div>
+                <img src="${post.image}" alt="${post.title}" class="article-image">
+                <div class="article-content">
+                    ${post.content}
+                </div>
+            `;
+
+            document.getElementById('blog-list-view').style.display = 'none';
+            document.getElementById('article-view').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Show blog list
+        function showBlogList() {
+            document.getElementById('article-view').classList.remove('active');
+            document.getElementById('blog-list-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // Utility functions
+        function getCategoryName(category) {
+            const categories = {
+                'tecnica': 'Técnica',
+                'teoria': 'Teoría',
+                'equipos': 'Equipos',
+                'consejos': 'Consejos'
+            };
+            return categories[category] || category;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletter-email').value;
+            if (email.trim()) {
+                alert(`¡Gracias por suscribirte con ${email}!`);
+                document.getElementById('newsletter-email').value = '';
+            }
+        }
+
+        // Comment submission
+        function submitComment(event) {
+            event.preventDefault();
+            alert('¡Comentario enviado! Será revisado antes de publicarse.');
+            event.target.reset();
+        }
+
+        // Animations
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        }
+    </script>
+</body>
+</html>

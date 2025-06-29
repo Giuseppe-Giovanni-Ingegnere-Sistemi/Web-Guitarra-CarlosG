@@ -1,1387 +1,1599 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Academia Musical - Aprende a tocar la guitarra de manera fácil y divertida</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Estilos generales */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      color: #1a202c;
-      background-color: #ffffff;
-      line-height: 1.5;
-    }
-    
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-    
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e2e8f0;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-    
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 64px;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      font-size: 1.25rem;
-    }
-    
-    .logo svg {
-      color: #e53e3e;
-    }
-    
-    nav {
-      display: none;
-    }
-    
-    @media (min-width: 768px) {
-      nav {
-        display: flex;
-        gap: 1.5rem;
-      }
-      
-      .mobile-menu-button {
-        display: none;
-      }
-    }
-    
-    nav a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    
-    nav a:hover {
-      color: #e53e3e;
-    }
-    
-    .button {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background-color: #e53e3e;
-      color: white;
-      font-weight: 500;
-      border-radius: 0.375rem;
-      transition: background-color 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .button:hover {
-      background-color: #c53030;
-    }
-    
-    .button-outline {
-      background-color: transparent;
-      border: 1px solid #e2e8f0;
-      color: #1a202c;
-    }
-    
-    .button-outline:hover {
-      background-color: #f7fafc;
-    }
-    
-    /* Mobile menu */
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      z-index: 30;
-      background-color: white;
-      padding-top: 64px;
-      display: none;
-    }
-    
-    .mobile-menu.open {
-      display: block;
-    }
-    
-    .mobile-menu-nav {
-      display: grid;
-      gap: 1.5rem;
-      padding: 1.5rem;
-    }
-    
-    .mobile-menu-nav a {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.125rem;
-      font-weight: 500;
-    }
-    
-    /* Hero section */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background-image: url(src/img/Armonía1.png);
-      background-size: cover;
-      background-position: center;
-    }
-    
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: rgba(26, 32, 44, 0.6);
-    }
-    
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      padding: 6rem 0 8rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      color: white;
-    }
-    
-    .hero h1 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 48rem;
-      margin: 1rem 0;
-    }
-    
-    @media (min-width: 768px) {
-      .hero h1 {
-        font-size: 3.75rem;
-      }
-    }
-    
-    .search-container {
-      position: relative;
-      width: 100%;
-      max-width: 28rem;
-      margin-top: 2.5rem;
-    }
-    
-    .search-input {
-      width: 100%;
-      height: 3rem;
-      padding: 0 3rem 0 1rem;
-      border-radius: 0.375rem;
-      border: 1px solid #e2e8f0;
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-    
-    .search-button {
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      padding: 0 1rem;
-      background-color: #e53e3e;
-      border: none;
-      border-top-right-radius: 0.375rem;
-      border-bottom-right-radius: 0.375rem;
-      color: white;
-      cursor: pointer;
-    }
-    
-    .search-button:hover {
-      background-color: #c53030;
-    }
-    
-    .logos {
-      margin-top: 4rem;
-    }
-    
-    .logos p {
-      margin-bottom: 1rem;
-      font-size: 0.875rem;
-    }
-    
-    .logos-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      opacity: 0.8;
-    }
-    
-    .logos-container img {
-      height: 2rem;
-      width: auto;
-      object-fit: contain;
-    }
-    
-    /* Sections */
-    section {
-      padding: 4rem 0 6rem;
-    }
-    
-    @media (min-width: 768px) {
-      section {
-        padding: 6rem 0 8rem;
-      }
-    }
-    
-    .section-gray {
-      background-color: #f7fafc;
-    }
-    
-    .section-title {
-      font-size: 1.875rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    
-    @media (min-width: 768px) {
-      .section-title {
-        font-size: 2.25rem;
-      }
-    }
-    
-    .section-description {
-      font-size: 1.125rem;
-      color: #4a5568;
-      margin-bottom: 2rem;
-    }
-    
-    .text-center {
-      text-align: center;
-    }
-    
-    .mb-16 {
-      margin-bottom: 4rem;
-    }
-    
-    /* Cards and grids */
-    .grid {
-      display: grid;
-      gap: 1.5rem;
-    }
-    
-    .grid-cols-2 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @media (min-width: 768px) {
-      .md-grid-cols-2 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .md-grid-cols-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .md-grid-cols-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-    
-    .card {
-      border-radius: 0.5rem;
-      overflow: hidden;
-      border: 1px solid #e2e8f0;
-      background-color: white;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-    
-    .card-image {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
-    
-    .card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-    
-    .card:hover .card-image img {
-      transform: scale(1.05);
-    }
-    
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-      display: flex;
-      align-items: flex-end;
-      padding: 1.5rem;
-      color: white;
-    }
-    
-    .badge {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background-color: #e53e3e;
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-    
-    .card-content {
-      padding: 1rem;
-    }
-    
-    .card-title {
-      font-weight: 700;
-      font-size: 1.125rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
-    }
-    
-    .card-footer {
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e2e8f0;
-    }
-    
-    .price {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: #e53e3e;
-    }
-    
-    /* Biografía del maestro */
-    .bio-container {
-      display: grid;
-      gap: 3rem;
-      align-items: center;
-    }
-    
-    @media (min-width: 768px) {
-      .bio-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    .bio-image-container {
-      position: relative;
-    }
-    
-    .bio-image {
-      border-radius: 0.5rem;
-      overflow: hidden;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    
-    .bio-badge {
-      position: absolute;
-      bottom: -1.5rem;
-      right: -1.5rem;
-      background-color: #e53e3e;
-      color: white;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .bio-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .bio-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    .bio-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-      background-color: #f7fafc;
-      border-radius: 0.5rem;
-      text-align: center;
-    }
-    
-    .bio-stat svg {
-      color: #e53e3e;
-      margin-bottom: 0.5rem;
-    }
-    
-    .bio-stat p {
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-    
-    /* CTA Section */
-    .cta {
-      position: relative;
-      background-image: url('https://placehold.co/1920x1080');
-      background-size: cover;
-      background-position: center;
-      color: white;
-    }
-    
-    .cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: rgba(26, 32, 44, 0.8);
-    }
-    
-    .cta-content {
-      position: relative;
-      z-index: 10;
-      max-width: 48rem;
-      margin: 0 auto;
-      text-align: center;
-    }
-    
-    .cta-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    @media (min-width: 640px) {
-      .cta-buttons {
-        flex-direction: row;
-        justify-content: center;
-      }
-    }
-    
-    .button-white {
-      background-color: transparent;
-      border: 1px solid white;
-      color: white;
-    }
-    
-    .button-white:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Footer */
-    footer {
-      background-color: white;
-      border-top: 1px solid #e2e8f0;
-      color: #4a5568;
-    }
-    
-    .footer-container {
-      padding: 3rem 0 4rem;
-    }
-    
-    .footer-grid {
-      display: grid;
-      gap: 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .footer-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-    
-    .footer-title {
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: #1a202c;
-      margin-bottom: 1rem;
-    }
-    
-    .footer-links {
-      list-style: none;
-    }
-    
-    .footer-links li {
-      margin-bottom: 0.5rem;
-    }
-    
-    .footer-links a {
-      color: #4a5568;
-      transition: color 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: #e53e3e;
-    }
-    
-    .footer-form {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .footer-input {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
-    }
-    
-    .footer-copyright {
-      border-top: 1px solid #e2e8f0;
-      padding-top: 1.5rem;
-      margin-top: 3rem;
-      text-align: center;
-      color: #718096;
-    }
-    
-    /* Animaciones */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s, transform 0.5s;
-    }
-    
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Utilidades */
-    .flex {
-      display: flex;
-    }
-    
-    .items-center {
-      align-items: center;
-    }
-    
-    .justify-between {
-      justify-content: space-between;
-    }
-    
-    .gap-2 {
-      gap: 0.5rem;
-    }
-    
-    .mt-8 {
-      margin-top: 2rem;
-    }
-    
-    .mt-12 {
-      margin-top: 3rem;
-    }
-    
-    .text-center {
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Musical - Aprende guitarra online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a202c;
+            background-color: #ffffff;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo svg {
+            color: #e53e3e;
+        }
+
+        nav {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+            }
+            .mobile-menu-button {
+                display: none;
+            }
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #e53e3e;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #e53e3e;
+            color: white;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .button:hover {
+            background-color: #c53030;
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+
+        .button-outline:hover {
+            background-color: #f7fafc;
+        }
+
+        .button-green {
+            background-color: #38a169;
+        }
+
+        .button-green:hover {
+            background-color: #2f855a;
+        }
+
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e53e3e;
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            background-color: white;
+            padding-top: 64px;
+            display: none;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .mobile-menu-nav a {
+            font-size: 1.125rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+        }
+
+        .hero-content {
+            padding: 6rem 0 8rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.2;
+            max-width: 48rem;
+            margin: 1rem auto;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3.75rem;
+            }
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 28rem;
+            margin: 2.5rem auto 0;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 3rem;
+            padding: 0 3rem 0 1rem;
+            border-radius: 0.375rem;
+            border: 1px solid #e2e8f0;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1a202c;
+        }
+
+        .search-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 0 1rem;
+            background-color: #e53e3e;
+            border: none;
+            border-top-right-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 0 6rem;
+        }
+
+        @media (min-width: 768px) {
+            section {
+                padding: 6rem 0 8rem;
+            }
+        }
+
+        .section-gray {
+            background-color: #f7fafc;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .section-description {
+            font-size: 1.125rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-16 {
+            margin-bottom: 4rem;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 768px) {
+            .md-grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .md-grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .md-grid-cols-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Cards */
+        .card {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-image {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #e53e3e;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .demo-button {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .demo-button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .card-instructor {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .card-footer {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .price {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #e53e3e;
+        }
+
+        .price-free {
+            color: #38a169;
+        }
+
+        /* Beginner section */
+        .beginner-card {
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .beginner-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .beginner-card img {
+            width: 100%;
+            height: 16rem;
+            object-fit: cover;
+        }
+
+        .beginner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            color: white;
+        }
+
+        /* Teacher bio */
+        .bio-container {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .bio-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .bio-image-container {
+            position: relative;
+        }
+
+        .bio-image img {
+            border-radius: 0.5rem;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bio-badge {
+            position: absolute;
+            bottom: -1.5rem;
+            right: -1.5rem;
+            background-color: #e53e3e;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+        }
+
+        .bio-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bio-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .bio-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f7fafc;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .bio-stat svg {
+            color: #e53e3e;
+            margin-bottom: 0.5rem;
+        }
+
+        .bio-stat p {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            max-width: 4xl;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-video {
+            aspect-ratio: 16 / 9;
+        }
+
+        .modal-video iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background-color: white;
+            border-top: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+
+        .footer-container {
+            padding: 3rem 0 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #e53e3e;
+        }
+
+        .footer-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .footer-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+        }
+
+        .footer-copyright {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: #718096;
+        }
+
+        /* Cart page */
+        .cart-empty {
+            text-align: center;
+            max-width: 28rem;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .cart-item {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-content {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cart-item img {
+            width: 6rem;
+            height: 6rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-meta {
+            font-size: 0.875rem;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .cart-summary {
+            background-color: #f7fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            position: sticky;
+            top: 6rem;
+        }
+
+        .cart-summary h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .cart-summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.125rem;
+            font-weight: 600;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 0.5rem;
+        }
+
+        .cart-promo {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #ebf8ff;
+            border-radius: 0.5rem;
+        }
+
+        .cart-promo h4 {
+            font-weight: 600;
+            color: #2b6cb0;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-promo p {
+            color: #2c5282;
+            font-size: 0.875rem;
+        }
+
+        /* Utilities */
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .sm-inline {
+                display: inline;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lg-grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Page transitions */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container header-container">
-      <div class="flex items-center gap-2">
-        <button class="mobile-menu-button" id="mobile-menu-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <a href="/" class="logo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3v14"></path>
-            <path d="M19 7v14"></path>
-            <path d="M5 10v14"></path>
-            <path d="M5 10a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v7"></path>
-          </svg>
-          <span>Academia Musical</span>
-        </a>
-      </div>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="flex items-center gap-2">
+                
+                <a href="#" class="logo" onclick="showPage('home')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3v14"></path>
+                        <path d="M19 7v14"></path>
+                        <path d="M5 10v14"></path>
+                        <path d="M5 10a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v7"></path>
+                    </svg>
+                    <span>Academia Musical</span>
+                </a>
+            </div>
 
-      <nav>
-        <a href="#cursos">Cursos</a>
-        <a href="#planes-y-precios">Planes y precios</a>
-        <a href="#tutoriales">Tutoriales</a>
-        <a href="#canciones">Canciones</a>
-        <a href="#blog">Blog</a>
-        <a href="Afinador.html">Afinador</a>
-      </nav>
+            <nav>
+                <a href="#cursos">Cursos</a>
+                <a href="#planes-y-precios">Planes y precios</a>
+                <a href="#tutoriales">Tutoriales</a>
+                <a href="#canciones">Canciones</a>
+                <a href="blog.html">Blog</a>
+                <a href="Afinador.html">Afinador</a>
+            </nav>
 
-      <a href="carrito.html" class="button button-outline" style="display: flex; align-items: center; gap: 0.5rem;">
-        🛒 Carrito
-      </a>
-
-      <button class="button">Acceder a Academia</button>
-
-      
-    </div>
-  </header>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobile-menu">
-    <nav class="mobile-menu-nav">
-      <a href="#cursos">Cursos</a>
-      <a href="#planes-y-precios">Planes y precios</a>
-      <a href="#tutoriales">Tutoriales</a>
-      <a href="#canciones">Canciones</a>
-      <a href="#blog">Blog</a>
-      <a href="Afinador.html">Afinador</a>
-    </nav>
-  </div>
-
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container hero-content">
-        <p class="fade-in">ACADEMIA MUSICAL, LA MAYOR ESCUELA ONLINE DE GUITARRA EN ESPAÑOL</p>
-        <h1 class="fade-in">Descubre cómo tocar la guitarra de manera fácil y divertida.</h1>
-        
-        <div class="search-container fade-in">
-          <input type="text" class="search-input" placeholder="¿Qué te gustaría aprender con la guitarra?">
-          <button class="search-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </button>
-        </div>
-        
-        
-      </div>
-    </section>
-
-    <!-- Nuevo con la guitarra -->
-    <section class="section-gray">
-      <div class="container">
-        <div class="text-center mb-16">
-          <h2 class="section-title fade-in">¿Nuevo con la guitarra? <span style="color: #e53e3e;">Empieza aquí</span></h2>
+            <div class="flex items-center gap-2">
+                <button class="button button-outline" onclick="showPage('cart')" style="position: relative;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="sm-inline">Carrito</span>
+                    <span class="cart-badge" id="cart-count" style="display: none;">0</span>
+                </button>
+                <button class="button">Acceder a Academia</button>
+            </div>
         </div>
 
-        <div class="grid md-grid-cols-2">
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Composición2.png" alt="Guitarra acústica">
-              <div class="card-overlay">
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Curso de Guitarra para Principiantes</h3>
-                  <p class="mb-4">Aprende desde cero, sin conocimientos previos</p>
-                  <button class="button">Ver curso</button>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <nav class="mobile-menu-nav">
+                <a href="#cursos">Cursos</a>
+                <a href="#planes-y-precios">Planes y precios</a>
+                <a href="#tutoriales">Tutoriales</a>
+                <a href="#canciones">Canciones</a>
+                <a href="#blog">Blog</a>
+                <a href="#afinador">Afinador</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <p class="fade-in">ACADEMIA MUSICAL, LA MAYOR ESCUELA ONLINE DE GUITARRA EN ESPAÑOL</p>
+                <h1 class="fade-in">Descubre cómo tocar la guitarra de manera fácil y divertida.</h1>
+                
+                <div class="search-container fade-in">
+                    <input type="text" class="search-input" placeholder="¿Qué te gustaría aprender con la guitarra?" id="search-input">
+                    <button class="search-button" onclick="performSearch()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
                 </div>
-              </div>
             </div>
-          </div>
+        </section>
 
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Composicion1.png" alt="Instructor de guitarra">
-              <div class="card-overlay">
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Fingerpicking - Clase 1</h3>
-                  <p class="mb-4">Lo más básico para empezar con esta técnica</p>
-                  <button class="button">Ver tutorial</button>
+        <!-- Beginner Section -->
+        <section class="section-gray">
+            <div class="container">
+                <div class="text-center mb-16">
+                    <h2 class="section-title fade-in">¿Nuevo con la guitarra? <span style="color: #e53e3e;">Empieza aquí</span></h2>
                 </div>
-              </div>
+                <div class="grid md-grid-cols-2">
+                    <div class="beginner-card fade-in" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop" alt="Curso de Guitarra para Principiantes">
+                        <div class="beginner-overlay">
+                            <div>
+                                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Curso de Guitarra para Principiantes</h3>
+                                <p style="margin-bottom: 1rem;">Aprende desde cero, sin conocimientos previos</p>
+                                <button class="button">Ver curso</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="beginner-card fade-in" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&h=400&fit=crop" alt="Fingerpicking - Clase 1">
+                        <div class="beginner-overlay">
+                            <div>
+                                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Fingerpicking - Clase 1</h3>
+                                <p style="margin-bottom: 1rem;">Lo más básico para empezar con esta técnica</p>
+                                <button class="button">Ver tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
+
+        <!-- Teacher Bio -->
+        <section>
+            <div class="container">
+                <div class="bio-container">
+                    <div class="bio-image-container fade-in">
+                        <div class="bio-image">
+                            <img src="src/img/Vert.jpg" alt="Carlos Gallardo - Maestro de Guitarra">
+                        </div>
+                        <div class="bio-badge">
+                            <p>15+ años de experiencia</p>
+                        </div>
+                    </div>
+                    <div class="bio-content fade-in">
+                        <h2 class="section-title">Conoce a tu maestro: Carlos Gallardo</h2>
+                        <p>Carlos Gallardo es un guitarrista, pianista, compositor y productor originario de Torreón, Coahuila, México, con más de 20 años de experiencia tocando música y más de 15 años enseñando a estudiantes de todos los niveles.</p>
+                        <p>Ganador de la Beca María Grever 2019 —el estímulo de composición más importante de América Latina—, es miembro activo de la Sociedad de Autores y Compositores de México (SACM) y ha sido galardonado en múltiples concursos de música.</p>
+                        <p>Además de enseñar, desarrolla su carrera como cantautor independiente, con dos discos grabados: En La Ruta y Anecdotario, disponibles en todas las plataformas digitales.</p>
+                        
+                        <div class="bio-stats">
+                            <div class="bio-stat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                                <p>Ganador de la Beca María Grever 2019</p>
+                            </div>
+                            <div class="bio-stat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                                <p>Autor de 2 discos originales</p>
+                            </div>
+                            <div class="bio-stat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <p>Más de 15 años enseñando música</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses -->
+        <section id="cursos" class="section-gray">
+            <div class="container">
+                <div class="flex justify-between items-center mb-16">
+                    <div>
+                        <h2 class="section-title">Cursos Destacados</h2>
+                        <p class="section-description">Aprende a tu ritmo con nuestros cursos más populares</p>
+                    </div>
+                    <button class="button button-outline">
+                        Ver Todos los Cursos
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid md-grid-cols-4" id="courses-grid">
+                    <!-- Courses will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Free Tutorials -->
+        <section id="tutoriales">
+            <div class="container">
+                <div class="flex justify-between items-center mb-16">
+                    <div>
+                        <h2 class="section-title">Tutoriales Gratuitos</h2>
+                        <p class="section-description">Aprende técnicas específicas con nuestros tutoriales</p>
+                    </div>
+                    <button class="button button-outline">
+                        Ver Todos los Tutoriales
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid md-grid-cols-3" id="tutorials-grid">
+                    <!-- Tutorials will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cart Page -->
+    <div id="cart-page" class="page">
+        <div class="container" style="padding: 4rem 1rem;">
+            <div style="max-width: 64rem; margin: 0 auto;">
+                <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+                    <h1 style="font-size: 1.875rem; font-weight: 700;">Carrito de Compras</h1>
+                    <button class="button button-outline" onclick="clearCart()" style="color: #e53e3e; border-color: #e53e3e;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="m19 6-2 14a2 2 0 0 1-2 1.61H9a2 2 0 0 1-2-1.61L5 6"></path>
+                            <path d="m10 11 6 0"></path>
+                        </svg>
+                        Vaciar Carrito
+                    </button>
+                </div>
+
+                <div id="cart-content">
+                    <!-- Cart content will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- Biografía del Maestro -->
-    <section>
-      <div class="container">
-        <div class="bio-container">
-          <div class="bio-image-container fade-in">
-            <div class="bio-image">
-              <img src="src/img/Vert.jpg" alt="Carlos Martínez - Maestro de Guitarra">
-            </div>
-            <div class="bio-badge">
-              <p class="text-lg font-bold">15+ años de experiencia</p>
-            </div>
-          </div>
-
-          <div class="bio-content fade-in">
-            <h2 class="section-title">Conoce a tu maestro: Carlos Gallardo</h2>
-            <p>
-              Carlos Gallardo es un guitarrista, pianista, compositor y productor originario de Torreón, Coahuila, México, con más de 20 años de experiencia tocando música y más de 15 años enseñando a estudiantes de todos los niveles.
-            </p>
-            <p>
-              Ganador de la Beca María Grever 2019 —el estímulo de composición más importante de América Latina—, es miembro activo de la Sociedad de Autores y Compositores de México (SACM) y ha sido galardonado en múltiples concursos de música. Su enfoque como educador está impulsado por una pasión profunda por compartir su conocimiento y por su curiosidad incansable como melómano.
-            </p>
-            <p>
-              Además de enseñar, desarrolla su carrera como cantautor independiente, con dos discos grabados: En La Ruta y Anecdotario, disponibles en todas las plataformas digitales..
-            </p>
-            <p>
-              En su plataforma encontrarás cursos en video para aprender a tocar diversos instrumentos, así como clases sobre composición y grabación. También puedes contratar clases particulares completamente personalizadas en cualquiera de las disciplinas disponibles.
-            </p>
-            <p>
-              ¡Bienvenid@ y que la música nos encuentre en el camino!
-            </p>
-
-            <div class="bio-stats">
-              <div class="bio-stat">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="8" r="7"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                </svg>
-                <p>Ganador de la Beca María Grever 2019</p>
-              </div>
-              <div class="bio-stat">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-                <p>Autor de 2 discos originales</p>
-              </div>
-              <div class="bio-stat">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-                <p>Más de 15 años enseñando música</p>
-              </div>
-            </div>
-
-            <div class="mt-8">
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Cursos Destacados -->
-    <section id="cursos" class="section-gray">
-      <div class="container">
-        <div class="flex justify-between items-center mb-16">
-          <div>
-            <h2 class="section-title">Cursos Destacados</h2>
-            <p class="section-description">Aprende a tu ritmo con nuestros cursos más populares</p>
-          </div>
-          <button class="button button-outline">
-            Ver Todos los Cursos
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-
-        <div class="grid md-grid-cols-4">
-          <!-- Curso 1 -->
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Armonía1.png" alt="Guitarra para Principiantes">
-              <span class="badge">Principiante</span>
-              <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-                <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
+    <!-- Video Modal -->
+    <div class="modal" id="video-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 1.125rem; font-weight: 600;">Vista previa del curso</h3>
+                <button class="button button-outline" onclick="closeVideoModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
-              </div>
             </div>
-            <div class="card-content">
-              <h3 class="card-title">Armonia 1</h3>
-              <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-              <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-                <span>Instructor: Carlos Gallardo</span>
-              </div>
+            <div class="modal-video">
+                <iframe id="video-iframe" src="/placeholder.svg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="card-footer">
-              <span class="price">$49.99</span>
-              <button class="button" onclick="agregarAlCarrito('Curso XYZ', 49.99)">Comprar Curso</button>
-            </div>
-          </div>
-
-          
-         <!-- Curso 2 -->
-         <div class="card fade-in">
-          <div class="card-image">
-            <img src="src/img/Armonía2.png" alt="Guitarra para Principiantes">
-            <span class="badge">Principiante</span>
-            <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-              <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Armonia 2 </h3>
-            <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-            <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-              <span>Instructor: Carlos Gallardo</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <span class="price">$49.99</span>
-            <button class="button">Comprar Curso</button>
-          </div>
         </div>
+    </div>
 
-          <!-- Curso 3 -->
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Armonía3.png" alt="Técnicas Avanzadas de Guitarra">
-              <span class="badge">Avanzado</span>
-              <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-                <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                </button>
-              </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="flex items-center gap-2" style="margin-bottom: 1rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3v14"></path>
+                            <path d="M19 7v14"></path>
+                            <path d="M5 10v14"></path>
+                            <path d="M5 10a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v7"></path>
+                        </svg>
+                        <span class="footer-title" style="margin-bottom: 0;">Academia Musical</span>
+                    </div>
+                    <p>La mayor escuela online de guitarra en español. Aprende a tocar la guitarra de manera fácil y divertida.</p>
+                </div>
+                <div>
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#cursos">Cursos</a></li>
+                        <li><a href="#planes-y-precios">Planes y precios</a></li>
+                        <li><a href="#tutoriales">Tutoriales</a></li>
+                        <li><a href="#canciones">Canciones</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#afinador">Afinador</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Contacto</h3>
+                    <ul class="footer-links">
+                        <li>info@academiamusical.com</li>
+                        <li>+34 123 456 789</li>
+                        <li>Madrid, España</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Suscríbete</h3>
+                    <p style="margin-bottom: 1rem;">Recibe noticias y ofertas especiales</p>
+                    <div class="footer-form">
+                        <input type="email" placeholder="Tu email" class="footer-input" id="newsletter-email">
+                        <button class="button" onclick="subscribeNewsletter()">Enviar</button>
+                    </div>
+                </div>
             </div>
-            <div class="card-content">
-              <h3 class="card-title">Armonía 3</h3>
-              <p class="card-description">Domina técnicas profesionales de guitarra</p>
-              <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-                <span>Instructor: Carlos Martínez</span>
-              </div>
+            <div class="footer-copyright">
+                <p id="copyright-year"></p>
             </div>
-            <div class="card-footer">
-              <span class="price">$69.99</span>
-              <button class="button">Comprar Curso</button>
-            </div>
-          </div>
-
-          <!-- Curso 4 -->
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Composicion1.png" alt="Aprende a tocar tus canciones favoritas">
-              <span class="badge">Intermedio</span>
-              <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-                <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">Composicion 1</h3>
-              <p class="card-description">Método práctico para tocar canciones populares</p>
-              <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-                <span>Instructor: Carlos Gallardo</span>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span class="price">$44.99</span>
-              <button class="button">Comprar Curso</button>
-            </div>
-
-          </div>
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Composición2.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Composición 2</h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Guitarra1.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Guitarra 1 </h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Guitarra2.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Guitarra 2</h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Guitarra3.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Guitarra 3 </h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Horiz.jpg" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Horiz </h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Lenguaje musical.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Lenguaje Musical</h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Sibelius.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Sibelius </h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Ukulele1.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Ukelele 1 </h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-<div class="card fade-in">
-  <div class="card-image">
-    <img src="src/img/Ukulele2.png" alt="Guitarra para Principiantes">
-    <span class="badge">Principiante</span>
-    <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-      <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">Ukelele 2 </h3>
-    <p class="card-description">Aprende los fundamentos de la guitarra desde cero</p>
-    <div class="flex items-center mt-8" style="font-size: 0.875rem; color: #4a5568;">
-      <span>Instructor: Carlos Gallardo</span>
-    </div>
-  </div>
-  <div class="card-footer">
-    <span class="price">$49.99</span>
-    <button class="button">Comprar Curso</button>
-  </div>
-</div>
-
-<!-- Curso 1 -->
-
-
         </div>
-      </div>
+    </footer>
 
+    <script>
+        // Data
+        const courses = [
+            {
+                id: '1',
+                title: 'Armonía 1',
+                description: 'Aprende los fundamentos de la armonía musical',
+                price: 49.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Armonía1.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '2',
+                title: 'Armonía 2',
+                description: 'Profundiza en conceptos armónicos avanzados',
+                price: 59.99,
+                level: 'Intermedio',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Armonía2.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '3',
+                title: 'Armonía 3',
+                description: 'Domina técnicas profesionales de armonía',
+                price: 69.99,
+                level: 'Avanzado',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Armonía3.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '4',
+                title: 'Composición 1',
+                description: 'Aprende a componer tus propias canciones',
+                price: 54.99,
+                level: 'Intermedio',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Composicion1.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '5',
+                title: 'Composicion 2',
+                description: 'Fundamentos básicos de la guitarra',
+                price: 39.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Composición2.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '6',
+                title: 'Guitarra 1',
+                description: 'Fundamentos básicos de la guitarra',
+                price: 39.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Guitarra1.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '7',
+                title: 'Guitarra 2',
+                description: 'Técnicas intermedias de guitarra',
+                price: 49.99,
+                level: 'Intermedio',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Guitarra2.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '8',
+                title: 'Guitarra 3',
+                description: 'Aprende a tocar ukulele desde cero',
+                price: 34.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Guitarra3.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '9',
+                title: 'Horiz',
+                description: 'Aprende a tocar ukulele desde cero',
+                price: 34.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Horiz.jpg',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '10',
+                title: 'Lenguaje Musical',
+                description: 'Teoría musical fundamental',
+                price: 44.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Lenguaje musical.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '11',
+                title: 'Sibelius',
+                description: 'Teoría musical fundamental',
+                price: 47.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Sibelius.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '12',
+                title: 'Ukulele 1',
+                description: 'Teoría musical fundamental',
+                price: 44.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Ukulele1.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '13',
+                title: 'Ukulele 2',
+                description: 'Teoría musical fundamental',
+                price: 44.99,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: '/public/img/Ukulele2.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            }
+        ];
 
-          
+        const tutorials = [
+            {
+                id: 'tutorial-1',
+                title: 'Acordes básicos para principiantes',
+                description: 'Tutorial gratuito',
+                price: 0,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: 'tutorial-2',
+                title: 'Técnica de fingerpicking - Clase 1',
+                description: 'Tutorial gratuito',
+                price: 0,
+                level: 'Principiante',
+                instructor: 'Carlos Gallardo',
+                image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: 'tutorial-3',
+                title: 'Ritmos esenciales de guitarra',
+                description: 'Tutorial gratuito',
+                price: 0,
+                level: 'Intermedio',
+                instructor: 'Carlos Gallardo',
+                image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            }
+        ];
 
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-
-    </section>
-
-    <!-- Tutoriales Gratuitos -->
-    <section id="tutoriales">
-      <div class="container">
-        <div class="flex justify-between items-center mb-16">
-          <div>
-            <h2 class="section-title">Tutoriales Gratuitos</h2>
-            <p class="section-description">Aprende técnicas específicas con nuestros tutoriales</p>
-          </div>
-          <button class="button button-outline">
-            Ver Todos los Tutoriales
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-
-        <div class="grid md-grid-cols-3">
-          <!-- Tutorial 1 -->
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Armonía3.png" alt="Acordes básicos para principiantes">
-              <span class="badge">Principiante</span>
-              <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-                <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">Acordes básicos para principiantes</h3>
-              <p class="card-description">Tutorial gratuito</p>
-            </div>
-          </div>
-
-          <!-- Tutorial 2 -->
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Lenguaje musical.png" alt="Técnica de fingerpicking - Clase 1">
-              <span class="badge">Principiante</span>
-              <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-                <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">Técnica de fingerpicking - Clase 1</h3>
-              <p class="card-description">Tutorial gratuito</p>
-            </div>
-          </div>
-
-          <!-- Tutorial 3 -->
-          <div class="card fade-in">
-            <div class="card-image">
-              <img src="src/img/Horiz.jpg" alt="Ritmos esenciales de guitarra">
-              <span class="badge">Intermedio</span>
-              <div class="card-overlay" style="opacity: 0; transition: opacity 0.3s;">
-                <button class="button" style="border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">Ritmos esenciales de guitarra</h3>
-              <p class="card-description">Tutorial gratuito</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
-
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-container">
-      <div class="footer-grid">
-        <div>
-          <div class="flex items-center gap-2 mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3v14"></path>
-              <path d="M19 7v14"></path>
-              <path d="M5 10v14"></path>
-              <path d="M5 10a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v7"></path>
-            </svg>
-            <span class="font-bold text-xl" style="color: #1a202c;">Academia Musical</span>
-          </div>
-          <p>
-            La mayor escuela online de guitarra en español. Aprende a tocar la guitarra de manera fácil y divertida.
-          </p>
-        </div>
-        <div>
-          <h3 class="footer-title">Enlaces Rápidos</h3>
-          <ul class="footer-links">
-            <li><a href="#cursos">Cursos</a></li>
-            <li><a href="#planes-y-precios">Planes y precios</a></li>
-            <li><a href="#tutoriales">Tutoriales</a></li>
-            <li><a href="#canciones">Canciones</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#afinador">Afinador</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="footer-title">Contacto</h3>
-          <ul class="footer-links">
-            <li>info@academiamusical.com</li>
-            <li>+34 123 456 789</li>
-            <li>Madrid, España</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="footer-title">Suscríbete</h3>
-          <p style="margin-bottom: 1rem;">Recibe noticias y ofertas especiales</p>
-          <div class="footer-form">
-            <input type="email" placeholder="Tu email" class="footer-input">
-            <button class="button">Enviar</button>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <p>© 2023 Academia Musical. Todos los derechos reservados.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Mobile menu toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      
-      // Change icon
-      if (mobileMenu.classList.contains('open')) {
-        mobileMenuButton.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        `;
-      } else {
-        mobileMenuButton.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        `;
-      }
-    });
-    
-    // Close mobile menu when clicking on a link
-    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-    mobileMenuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        mobileMenuButton.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        `;
-      });
-    });
-    
-    // Fade in animations on scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const fadeElements = document.querySelectorAll('.fade-in');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
-      
-      // Card hover effects
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        const overlay = card.querySelector('.card-overlay');
-        if (overlay) {
-          card.addEventListener('mouseenter', () => {
-            overlay.style.opacity = '1';
-          });
-          card.addEventListener('mouseleave', () => {
-            overlay.style.opacity = '0';
-          });
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
         }
-      });
-    });
-    function agregarAlCarrito(titulo, precio) {
-    let carrito = JSON.parse(localStorage.getItem('carritoCursos')) || [];
-    if (!carrito.some(item => item.title === titulo)) {
-      carrito.push({ title: titulo, price: precio });
-      localStorage.setItem('carritoCursos', JSON.stringify(carrito));
-      alert('Curso agregado al carrito.');
-    } else {
-      alert('Este curso ya está en tu carrito.');
-    }
-  }
-    // Current year for copyright
-    document.querySelector('.footer-copyright p').innerHTML = 
-      `© ${new Date().getFullYear()} Academia Musical. Todos los derechos reservados.`;
-  </script>
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            if (cart.length > 0) {
+                cartCount.textContent = cart.length;
+                cartCount.style.display = 'flex';
+            } else {
+                cartCount.style.display = 'none';
+            }
+        }
+
+        function addToCart(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course && !cart.find(c => c.id === courseId)) {
+                cart.push(course);
+                saveCart();
+                
+                // Update button state
+                const button = document.querySelector(`[data-course-id="${courseId}"]`);
+                if (button) {
+                    button.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        En Carrito
+                    `;
+                    button.className = 'button button-green';
+                    button.disabled = true;
+                }
+                
+                // Show success message
+                showNotification('¡Curso agregado al carrito!');
+            }
+        }
+
+        function removeFromCart(courseId) {
+            cart = cart.filter(c => c.id !== courseId);
+            saveCart();
+            renderCartPage();
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+            renderCartPage();
+        }
+
+        function showNotification(message) {
+            // Simple notification - you could enhance this
+            alert(message);
+        }
+
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            if (pageId === 'home') {
+                document.getElementById('home-page').classList.add('active');
+            } else if (pageId === 'cart') {
+                document.getElementById('cart-page').classList.add('active');
+                renderCartPage();
+            }
+        }
+
+        // Video modal
+        function openVideoModal(videoUrl) {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe');
+            iframe.src = videoUrl;
+            modal.classList.add('open');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe');
+            iframe.src = '';
+            modal.classList.remove('open');
+        }
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const button = document.getElementById('mobile-menu-button');
+            
+            mobileMenu.classList.toggle('open');
+            
+            if (mobileMenu.classList.contains('open')) {
+                button.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                `;
+            } else {
+                button.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                `;
+            }
+        }
+
+        // Search functionality
+        function performSearch() {
+            const query = document.getElementById('search-input').value;
+            if (query.trim()) {
+                alert(`Buscando: "${query}"`);
+                // Here you would implement actual search functionality
+            }
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletter-email').value;
+            if (email.trim()) {
+                alert(`¡Gracias por suscribirte con ${email}!`);
+                document.getElementById('newsletter-email').value = '';
+            }
+        }
+
+        // Render functions
+        function renderCourseCard(course) {
+            const isInCart = cart.find(c => c.id === course.id);
+            
+            return `
+                <div class="card fade-in">
+                    <div class="card-image">
+                        <img src="${course.image}" alt="${course.title}">
+                        <span class="badge">${course.level}</span>
+                        ${course.videoUrl ? `
+                            <button class="demo-button" onclick="openVideoModal('${course.videoUrl}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        ` : ''}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${course.title}</h3>
+                        <p class="card-description">${course.description}</p>
+                        <div class="card-instructor">Instructor: ${course.instructor}</div>
+                    </div>
+                    <div class="card-footer">
+                        ${course.price > 0 ? `
+                            <span class="price">$${course.price}</span>
+                            <button class="button ${isInCart ? 'button-green' : ''}" 
+                                    data-course-id="${course.id}" 
+                                    onclick="addToCart('${course.id}')"
+                                    ${isInCart ? 'disabled' : ''}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                ${isInCart ? 'En Carrito' : 'Agregar'}
+                            </button>
+                        ` : `
+                            <span class="price price-free">GRATIS</span>
+                            <button class="button button-green">Ver Ahora</button>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCoursesGrid() {
+            const coursesGrid = document.getElementById('courses-grid');
+            coursesGrid.innerHTML = courses.map(course => renderCourseCard(course)).join('');
+        }
+
+        function renderTutorialsGrid() {
+            const tutorialsGrid = document.getElementById('tutorials-grid');
+            tutorialsGrid.innerHTML = tutorials.map(tutorial => renderCourseCard(tutorial)).join('');
+        }
+
+        function renderCartPage() {
+            const cartContent = document.getElementById('cart-content');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="cart-empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1rem;">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Tu carrito está vacío</h2>
+                        <p style="color: #4a5568; margin-bottom: 2rem;">Explora nuestros cursos y encuentra el perfecto para ti</p>
+                        <button class="button" onclick="showPage('home')">Explorar Cursos</button>
+                    </div>
+                `;
+            } else {
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                
+                cartContent.innerHTML = `
+                    <div class="grid lg-grid-cols-3 gap-4">
+                        <div style="grid-column: span 2;">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                ${cart.map(item => `
+                                    <div class="cart-item">
+                                        <div class="cart-item-content">
+                                            <img src="${item.image}" alt="${item.title}">
+                                            <div class="cart-item-info">
+                                                <h3 class="cart-item-title">${item.title}</h3>
+                                                <p class="cart-item-meta">Instructor: ${item.instructor}</p>
+                                                <p class="cart-item-meta">Nivel: ${item.level}</p>
+                                                <div class="cart-item-footer">
+                                                    <span class="price">$${item.price}</span>
+                                                    <button class="button button-outline" onclick="removeFromCart('${item.id}')" style="color: #e53e3e; border-color: #e53e3e;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="m19 6-2 14a2 2 0 0 1-2 1.61H9a2 2 0 0 1-2-1.61L5 6"></path>
+                                                            <path d="m10 11 6 0"></path>
+                                                        </svg>
+                                                        Eliminar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="cart-summary">
+                                <h3>Resumen del Pedido</h3>
+                                <div class="cart-summary-line">
+                                    <span>Subtotal (${cart.length} cursos)</span>
+                                    <span>$${total.toFixed(2)}</span>
+                                </div>
+                                <div class="cart-summary-line">
+                                    <span>Descuento</span>
+                                    <span style="color: #38a169;">-$0.00</span>
+                                </div>
+                                <div class="cart-summary-total">
+                                    <span>Total</span>
+                                    <span>$${total.toFixed(2)}</span>
+                                </div>
+                                <button class="button" style="width: 100%; margin-top: 1rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                    </svg>
+                                    Proceder al Pago
+                                </button>
+                                <div style="text-align: center; margin-top: 1rem;">
+                                    <a href="#" onclick="showPage('home')" style="color: #e53e3e; text-decoration: none; font-size: 0.875rem;">
+                                        ← Continuar comprando
+                                    </a>
+                                </div>
+                                <div class="cart-promo">
+                                    <h4>🎓 Acceso de por vida</h4>
+                                    <p>Todos los cursos incluyen acceso ilimitado y actualizaciones gratuitas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Intersection Observer for animations
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize
+            updateCartCount();
+            renderCoursesGrid();
+            renderTutorialsGrid();
+            initAnimations();
+            
+            // Set copyright year
+            document.getElementById('copyright-year').textContent = `© ${new Date().getFullYear()} Academia Musical. Todos los derechos reservados.`;
+            
+            // Mobile menu button
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.remove('open');
+                    document.getElementById('mobile-menu-button').innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    `;
+                });
+            });
+            
+            // Search input enter key
+            document.getElementById('search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Newsletter input enter key
+            document.getElementById('newsletter-email').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    subscribeNewsletter();
+                }
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('video-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeVideoModal();
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Re-initialize animations when content changes
+        function reinitAnimations() {
+            setTimeout(() => {
+                initAnimations();
+            }, 100);
+        }
+
+        // Update animations after page changes
+        const originalShowPage = showPage;
+        showPage = function(pageId) {
+            originalShowPage(pageId);
+            reinitAnimations();
+        };
+    </script>
 </body>
 </html>
