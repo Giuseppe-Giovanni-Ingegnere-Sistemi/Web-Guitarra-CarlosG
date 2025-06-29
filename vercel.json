@@ -1,9 +1,10 @@
 {
+    "outputDirectory": "public",
     "cleanUrls": true,
     "rewrites": [
       { "source": "/", "destination": "/index.html" },
       { "source": "/blog", "destination": "/blog.html" },
-      { "source": "/afinador", "destination": "/Afinador.html" }
+      { "source": "/afinador", "destination": "/afinador.html" }
     ]
   }
   
