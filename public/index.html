@@ -53,6 +53,7 @@
             font-size: 1.25rem;
             text-decoration: none;
             color: inherit;
+            cursor: pointer;
         }
 
         .logo svg {
@@ -104,6 +105,7 @@
 
         .button:hover {
             background-color: #c53030;
+            transform: translateY(-1px);
         }
 
         .button-outline {
@@ -229,6 +231,11 @@
             border-bottom-right-radius: 0.375rem;
             color: white;
             cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-button:hover {
+            background-color: #c53030;
         }
 
         /* Sections */
@@ -329,12 +336,23 @@
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            background-color: #e53e3e;
             color: white;
             padding: 0.25rem 0.5rem;
             border-radius: 0.25rem;
             font-size: 0.75rem;
             font-weight: 500;
+        }
+
+        .badge-principiante {
+            background-color: #38a169;
+        }
+
+        .badge-intermedio {
+            background-color: #eab308;
+        }
+
+        .badge-avanzado {
+            background-color: #e53e3e;
         }
 
         .demo-button {
@@ -352,6 +370,7 @@
             align-items: center;
             gap: 0.25rem;
             backdrop-filter: blur(4px);
+            transition: background-color 0.2s;
         }
 
         .demo-button:hover {
@@ -409,6 +428,7 @@
 
         .beginner-card:hover {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
         }
 
         .beginner-card img {
@@ -537,79 +557,6 @@
             height: 100%;
         }
 
-        /* Footer */
-        footer {
-            background-color: white;
-            border-top: 1px solid #e2e8f0;
-            color: #4a5568;
-        }
-
-        .footer-container {
-            padding: 3rem 0 4rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .footer-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .footer-title {
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: #1a202c;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: #4a5568;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: #e53e3e;
-        }
-
-        .footer-form {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .footer-input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.375rem;
-        }
-
-        .footer-copyright {
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
-            margin-top: 3rem;
-            text-align: center;
-            color: #718096;
-        }
-
         /* Cart page */
         .cart-empty {
             text-align: center;
@@ -710,6 +657,79 @@
             font-size: 0.875rem;
         }
 
+        /* Footer */
+        footer {
+            background-color: white;
+            border-top: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+
+        .footer-container {
+            padding: 3rem 0 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #e53e3e;
+        }
+
+        .footer-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .footer-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+        }
+
+        .footer-copyright {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: #718096;
+        }
+
         /* Utilities */
         .flex {
             display: flex;
@@ -771,6 +791,25 @@
         .page.active {
             display: block;
         }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #38a169;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 60;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
@@ -778,8 +817,7 @@
     <header>
         <div class="container header-container">
             <div class="flex items-center gap-2">
-                
-                <a href="#" class="logo" onclick="showPage('home')">
+                <div class="logo" onclick="showPage('home')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 3v14"></path>
                         <path d="M19 7v14"></path>
@@ -787,18 +825,16 @@
                         <path d="M5 10a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v7"></path>
                     </svg>
                     <span>Academia Musical</span>
-                </a>
+                </div>
             </div>
             <a href="dash.html" class="button">Dashboard</a>
-            
-
             <nav>
                 <a href="#cursos">Cursos</a>
                 <a href="#planes-y-precios">Planes y precios</a>
                 <a href="#tutoriales">Tutoriales</a>
                 <a href="#canciones">Canciones</a>
-                <a href="blog.html">Blog</a>
-                <a href="Afinador.html">Afinador</a>
+                <a href="#blog">Blog</a>
+                <a href="#afinador">Afinador</a>
             </nav>
 
             <div class="flex items-center gap-2">
@@ -812,20 +848,13 @@
                     <span class="cart-badge" id="cart-count" style="display: none;">0</span>
                 </button>
                 <button class="button">Acceder a Academia</button>
+                
+                
+
             </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobile-menu">
-            <nav class="mobile-menu-nav">
-                <a href="#cursos">Cursos</a>
-                <a href="#planes-y-precios">Planes y precios</a>
-                <a href="#tutoriales">Tutoriales</a>
-                <a href="#canciones">Canciones</a>
-                <a href="#blog">Blog</a>
-                <a href="#afinador">Afinador</a>
-            </nav>
-        </div>
+       
     </header>
 
     <!-- Home Page -->
@@ -885,7 +914,7 @@
                 <div class="bio-container">
                     <div class="bio-image-container fade-in">
                         <div class="bio-image">
-                            <img src="img/Vert.jpg" alt="Carlos Gallardo - Maestro de Guitarra">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop" alt="Carlos Gallardo - Maestro de Guitarra">
                         </div>
                         <div class="bio-badge">
                             <p>15+ años de experiencia</p>
@@ -942,8 +971,246 @@
                         </svg>
                     </button>
                 </div>
-                <div class="grid md-grid-cols-4" id="courses-grid">
-                    <!-- Courses will be populated by JavaScript -->
+                <div class="grid md-grid-cols-4">
+                    <!-- Curso 1 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="img/Armonía1.png" alt="Armonía 1" loading="lazy">
+                            <span class="badge badge-principiante">Principiante</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Armonía 1</h3>
+                            <p class="card-description">Aprende los fundamentos de la armonía musical</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$49.99</span>
+                            <button class="button" data-course-id="1" onclick="addToCart('1')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 2 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop" alt="Armonía 2" loading="lazy">
+                            <span class="badge badge-intermedio">Intermedio</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Armonía 2</h3>
+                            <p class="card-description">Profundiza en conceptos armónicos avanzados</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$59.99</span>
+                            <button class="button" data-course-id="2" onclick="addToCart('2')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 3 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Armonía 3" loading="lazy">
+                            <span class="badge badge-avanzado">Avanzado</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Armonía 3</h3>
+                            <p class="card-description">Domina técnicas profesionales de armonía</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$69.99</span>
+                            <button class="button" data-course-id="3" onclick="addToCart('3')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 4 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop" alt="Composición 1" loading="lazy">
+                            <span class="badge badge-intermedio">Intermedio</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Composición 1</h3>
+                            <p class="card-description">Aprende a componer tus propias canciones</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$54.99</span>
+                            <button class="button" data-course-id="4" onclick="addToCart('4')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 5 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Guitarra 1" loading="lazy">
+                            <span class="badge badge-principiante">Principiante</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Guitarra 1</h3>
+                            <p class="card-description">Fundamentos básicos de la guitarra</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$39.99</span>
+                            <button class="button" data-course-id="5" onclick="addToCart('5')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 6 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop" alt="Guitarra 2" loading="lazy">
+                            <span class="badge badge-intermedio">Intermedio</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Guitarra 2</h3>
+                            <p class="card-description">Técnicas intermedias de guitarra</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$49.99</span>
+                            <button class="button" data-course-id="6" onclick="addToCart('6')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 7 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Guitarra 3" loading="lazy">
+                            <span class="badge badge-avanzado">Avanzado</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Guitarra 3</h3>
+                            <p class="card-description">Técnicas avanzadas de guitarra</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$59.99</span>
+                            <button class="button" data-course-id="7" onclick="addToCart('7')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Curso 8 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop" alt="Ukulele 1" loading="lazy">
+                            <span class="badge badge-principiante">Principiante</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Ukulele 1</h3>
+                            <p class="card-description">Aprende a tocar ukulele desde cero</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">$34.99</span>
+                            <button class="button" data-course-id="8" onclick="addToCart('8')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -963,8 +1230,75 @@
                         </svg>
                     </button>
                 </div>
-                <div class="grid md-grid-cols-3" id="tutorials-grid">
-                    <!-- Tutorials will be populated by JavaScript -->
+                <div class="grid md-grid-cols-3">
+                    <!-- Tutorial 1 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Acordes básicos para principiantes" loading="lazy">
+                            <span class="badge badge-principiante">Principiante</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Acordes básicos para principiantes</h3>
+                            <p class="card-description">Tutorial gratuito</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price price-free">GRATIS</span>
+                            <button class="button button-green" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">Ver Ahora</button>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial 2 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop" alt="Técnica de fingerpicking - Clase 1" loading="lazy">
+                            <span class="badge badge-principiante">Principiante</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Técnica de fingerpicking - Clase 1</h3>
+                            <p class="card-description">Tutorial gratuito</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price price-free">GRATIS</span>
+                            <button class="button button-green" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">Ver Ahora</button>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial 3 -->
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Ritmos esenciales de guitarra" loading="lazy">
+                            <span class="badge badge-intermedio">Intermedio</span>
+                            <button class="demo-button" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Ver Demo
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Ritmos esenciales de guitarra</h3>
+                            <p class="card-description">Tutorial gratuito</p>
+                            <div class="card-instructor">Instructor: Carlos Gallardo</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price price-free">GRATIS</span>
+                            <button class="button button-green" onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">Ver Ahora</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -985,7 +1319,6 @@
                         Vaciar Carrito
                     </button>
                 </div>
-
                 <div id="cart-content">
                     <!-- Cart content will be populated by JavaScript -->
                 </div>
@@ -1009,6 +1342,11 @@
                 <iframe id="video-iframe" src="/placeholder.svg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
     </div>
 
     <!-- Footer -->
@@ -1062,7 +1400,7 @@
     </footer>
 
     <script>
-        // Data
+        // Data - Course information with images directly in HTML
         const courses = [
             {
                 id: '1',
@@ -1071,7 +1409,6 @@
                 price: 49.99,
                 level: 'Principiante',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Armonía1.png',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             },
             {
@@ -1081,7 +1418,6 @@
                 price: 59.99,
                 level: 'Intermedio',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Armonía2.png',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             },
             {
@@ -1091,7 +1427,6 @@
                 price: 69.99,
                 level: 'Avanzado',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Armonía3.png',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             },
             {
@@ -1101,130 +1436,42 @@
                 price: 54.99,
                 level: 'Intermedio',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Composicion1.png',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             },
             {
                 id: '5',
-                title: 'Composicion 2',
-                description: 'Fundamentos básicos de la guitarra',
-                price: 39.99,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: '/public/img/Composición2.png',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: '6',
                 title: 'Guitarra 1',
                 description: 'Fundamentos básicos de la guitarra',
                 price: 39.99,
                 level: 'Principiante',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Guitarra1.png',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             },
             {
-                id: '7',
+                id: '6',
                 title: 'Guitarra 2',
                 description: 'Técnicas intermedias de guitarra',
                 price: 49.99,
                 level: 'Intermedio',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Guitarra2.png',
+                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            },
+            {
+                id: '7',
+                title: 'Guitarra 3',
+                description: 'Técnicas avanzadas de guitarra',
+                price: 59.99,
+                level: 'Avanzado',
+                instructor: 'Carlos Gallardo',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             },
             {
                 id: '8',
-                title: 'Guitarra 3',
-                description: 'Aprende a tocar ukulele desde cero',
-                price: 34.99,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: '/public/img/Guitarra3.png',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: '9',
-                title: 'Horiz',
-                description: 'Aprende a tocar ukulele desde cero',
-                price: 34.99,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: '/public/img/Horiz.jpg',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: '10',
-                title: 'Lenguaje Musical',
-                description: 'Teoría musical fundamental',
-                price: 44.99,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: '/public/img/Lenguaje musical.png',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: '11',
-                title: 'Sibelius',
-                description: 'Teoría musical fundamental',
-                price: 47.99,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: '/public/img/Sibelius.png',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: '12',
                 title: 'Ukulele 1',
-                description: 'Teoría musical fundamental',
-                price: 44.99,
+                description: 'Aprende a tocar ukulele desde cero',
+                price: 34.99,
                 level: 'Principiante',
                 instructor: 'Carlos Gallardo',
-                image: '/public/img/Ukulele1.png',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: '13',
-                title: 'Ukulele 2',
-                description: 'Teoría musical fundamental',
-                price: 44.99,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: '/public/img/Ukulele2.png',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            }
-        ];
-
-        const tutorials = [
-            {
-                id: 'tutorial-1',
-                title: 'Acordes básicos para principiantes',
-                description: 'Tutorial gratuito',
-                price: 0,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: 'tutorial-2',
-                title: 'Técnica de fingerpicking - Clase 1',
-                description: 'Tutorial gratuito',
-                price: 0,
-                level: 'Principiante',
-                instructor: 'Carlos Gallardo',
-                image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop',
-                videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-            },
-            {
-                id: 'tutorial-3',
-                title: 'Ritmos esenciales de guitarra',
-                description: 'Tutorial gratuito',
-                price: 0,
-                level: 'Intermedio',
-                instructor: 'Carlos Gallardo',
-                image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
                 videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
             }
         ];
@@ -1268,7 +1515,7 @@
                     button.disabled = true;
                 }
                 
-                // Show success message
+                // Show success notification
                 showNotification('¡Curso agregado al carrito!');
             }
         }
@@ -1286,8 +1533,14 @@
         }
 
         function showNotification(message) {
-            // Simple notification - you could enhance this
-            alert(message);
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
         }
 
         // Page navigation
@@ -1348,8 +1601,7 @@
         function performSearch() {
             const query = document.getElementById('search-input').value;
             if (query.trim()) {
-                alert(`Buscando: "${query}"`);
-                // Here you would implement actual search functionality
+                showNotification(`Buscando: "${query}"`);
             }
         }
 
@@ -1357,65 +1609,9 @@
         function subscribeNewsletter() {
             const email = document.getElementById('newsletter-email').value;
             if (email.trim()) {
-                alert(`¡Gracias por suscribirte con ${email}!`);
+                showNotification(`¡Gracias por suscribirte con ${email}!`);
                 document.getElementById('newsletter-email').value = '';
             }
-        }
-
-        // Render functions
-        function renderCourseCard(course) {
-            const isInCart = cart.find(c => c.id === course.id);
-            
-            return `
-                <div class="card fade-in">
-                    <div class="card-image">
-                        <img src="${course.image}" alt="${course.title}">
-                        <span class="badge">${course.level}</span>
-                        ${course.videoUrl ? `
-                            <button class="demo-button" onclick="openVideoModal('${course.videoUrl}')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                                </svg>
-                                Ver Demo
-                            </button>
-                        ` : ''}
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${course.title}</h3>
-                        <p class="card-description">${course.description}</p>
-                        <div class="card-instructor">Instructor: ${course.instructor}</div>
-                    </div>
-                    <div class="card-footer">
-                        ${course.price > 0 ? `
-                            <span class="price">$${course.price}</span>
-                            <button class="button ${isInCart ? 'button-green' : ''}" 
-                                    data-course-id="${course.id}" 
-                                    onclick="addToCart('${course.id}')"
-                                    ${isInCart ? 'disabled' : ''}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="9" cy="21" r="1"></circle>
-                                    <circle cx="20" cy="21" r="1"></circle>
-                                    <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                                </svg>
-                                ${isInCart ? 'En Carrito' : 'Agregar'}
-                            </button>
-                        ` : `
-                            <span class="price price-free">GRATIS</span>
-                            <button class="button button-green">Ver Ahora</button>
-                        `}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderCoursesGrid() {
-            const coursesGrid = document.getElementById('courses-grid');
-            coursesGrid.innerHTML = courses.map(course => renderCourseCard(course)).join('');
-        }
-
-        function renderTutorialsGrid() {
-            const tutorialsGrid = document.getElementById('tutorials-grid');
-            tutorialsGrid.innerHTML = tutorials.map(tutorial => renderCourseCard(tutorial)).join('');
         }
 
         function renderCartPage() {
@@ -1444,7 +1640,7 @@
                                 ${cart.map(item => `
                                     <div class="cart-item">
                                         <div class="cart-item-content">
-                                            <img src="${item.image}" alt="${item.title}">
+                                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=96&h=96&fit=crop" alt="${item.title}" loading="lazy">
                                             <div class="cart-item-info">
                                                 <h3 class="cart-item-title">${item.title}</h3>
                                                 <p class="cart-item-meta">Instructor: ${item.instructor}</p>
@@ -1481,10 +1677,10 @@
                                     <span>Total</span>
                                     <span>$${total.toFixed(2)}</span>
                                 </div>
-                                <button class="button" style="width: 100%; margin-top: 1rem;">
+                                <button class="button" style="width: 100%; margin-top: 1rem;" onclick="showNotification('¡Funcionalidad de pago próximamente!')">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                        <line x1="10" x2="23" y2="10"></line>
                                     </svg>
                                     Proceder al Pago
                                 </button>
@@ -1523,15 +1719,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize
             updateCartCount();
-            renderCoursesGrid();
-            renderTutorialsGrid();
             initAnimations();
             
             // Set copyright year
             document.getElementById('copyright-year').textContent = `© ${new Date().getFullYear()} Academia Musical. Todos los derechos reservados.`;
-            
-            // Mobile menu button
-            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
             
             // Close mobile menu when clicking on links
             document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
@@ -1582,20 +1773,6 @@
                 });
             });
         });
-
-        // Re-initialize animations when content changes
-        function reinitAnimations() {
-            setTimeout(() => {
-                initAnimations();
-            }, 100);
-        }
-
-        // Update animations after page changes
-        const originalShowPage = showPage;
-        showPage = function(pageId) {
-            originalShowPage(pageId);
-            reinitAnimations();
-        };
     </script>
 </body>
 </html>
