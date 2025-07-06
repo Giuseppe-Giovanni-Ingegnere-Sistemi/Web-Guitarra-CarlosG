@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Studio - Dashboard</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fafafa;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: #f97316;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .brand-text h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .brand-text p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .sidebar-content {
+            padding: 16px;
+            flex: 1;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-menu-item {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .sidebar-menu-button {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .sidebar-menu-button:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .sidebar-menu-button.active {
+            background: #0f172a;
+            color: white;
+        }
+
+        .sidebar-footer {
+            padding: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #f97316;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .user-details h3 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .user-details p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 0 32px;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-toggle:hover {
+            background: #f1f5f9;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 512px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 40px;
+            padding: 0 16px 0 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0f172a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e293b;
+        }
+
+        .btn-ghost {
+            background: none;
+            color: #64748b;
+            padding: 8px;
+        }
+
+        .btn-ghost:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 12px;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            flex: 1;
+        }
+
+        .stat-icon {
+            color: #9ca3af;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .tabs-list {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .tab-trigger {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #64748b;
+        }
+
+        .tab-trigger.active {
+            background: white;
+            color: #0f172a;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 24px 24px 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Video List */
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .video-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .video-thumbnail {
+            width: 120px;
+            height: 68px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .video-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .video-title {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-default {
+            background: #0f172a;
+            color: white;
+        }
+
+        .badge-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .badge-outline {
+            background: none;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .course-header {
+            padding: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .course-badges {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .course-stat {
+            display: flex;
+            justify-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .course-stat-label {
+            color: #64748b;
+        }
+
+        .course-stat-value {
+            font-weight: 500;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        .btn-outline:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 50;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 16px;
+                gap: 16px;
+            }
+
+            .header {
+                padding: 0 16px;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar:not(.collapsed) {
+                transform: translateX(0);
+            }
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            width: 100%;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #374151;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: #f9fafb;
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 4px 0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 24px 24px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            color: #6b7280;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .file-upload {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-upload:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .file-upload.dragover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .file-upload-icon {
+            color: #9ca3af;
+            margin-bottom: 12px;
+        }
+
+        .file-upload-text {
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .file-upload-hint {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Overlay for mobile -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="brand-icon">
+                        <i data-lucide="guitar"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h2>Music Studio</h2>
+                        <p>Panel de Control</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-content">
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button active" data-tab="overview">
+                            <i data-lucide="home"></i>
+                            <span>Dashboard</span>
+                        </button>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button" data-tab="videos">
+                            <i data-lucide="video"></i>
+                            <span>Videos</span>
+                        </button>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button" data-tab="courses">
+                            <i data-lucide="book-open"></i>
+                            <span>Cursos</span>
+                        </button>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button" data-tab="analytics">
+                            <i data-lucide="bar-chart-3"></i>
+                            <span>Analytics</span>
+                        </button>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button">
+                            <i data-lucide="dollar-sign"></i>
+                            <span>Ingresos</span>
+                        </button>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button">
+                            <i data-lucide="users"></i>
+                            <span>Suscriptores</span>
+                        </button>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <button class="sidebar-menu-button">
+                            <i data-lucide="settings"></i>
+                            <span>Configuración</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i data-lucide="music"></i>
+                    </div>
+                    <div class="user-details">
+                        <h3>Instructor</h3>
+                        <p>admin@musicstudio.com</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                
+
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar videos, cursos...">
+                    <i data-lucide="search" class="search-icon"></i>
+                </div>
+
+                <div class="header-actions">
+                    <div class="dropdown">
+                        <button class="btn btn-primary" id="createButton">
+                            <i data-lucide="plus"></i>
+                            Crear
+                            <i data-lucide="chevron-down" style="margin-left: 4px;"></i>
+                        </button>
+                        <div class="dropdown-menu" id="createDropdown">
+                            <button class="dropdown-item" onclick="openModal('uploadVideoModal')">
+                                <i data-lucide="video"></i>
+                                Subir Video
+                            </button>
+                            <button class="dropdown-item" onclick="openModal('createCourseModal')">
+                                <i data-lucide="book-open"></i>
+                                Crear Curso
+                            </button>
+                            <button class="dropdown-item" onclick="openModal('createPlaylistModal')">
+                                <i data-lucide="list"></i>
+                                Crear Playlist
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item">
+                                <i data-lucide="settings"></i>
+                                Configuración
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-ghost">
+                        <i data-lucide="bell"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total de Visualizaciones</span>
+                            <i data-lucide="eye" class="stat-icon"></i>
+                        </div>
+                        <div class="stat-value">125,430</div>
+                        <div class="stat-change">+12% desde el mes pasado</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Suscriptores</span>
+                            <i data-lucide="users" class="stat-icon"></i>
+                        </div>
+                        <div class="stat-value">8,920</div>
+                        <div class="stat-change">+8% desde el mes pasado</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Ingresos</span>
+                            <i data-lucide="dollar-sign" class="stat-icon"></i>
+                        </div>
+                        <div class="stat-value">$15,680</div>
+                        <div class="stat-change">+23% desde el mes pasado</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Cursos Activos</span>
+                            <i data-lucide="book-open" class="stat-icon"></i>
+                        </div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-change">+2 nuevos este mes</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tabs-list">
+                        <button class="tab-trigger active" data-tab="overview">Resumen</button>
+                        <button class="tab-trigger" data-tab="videos">Videos</button>
+                        <button class="tab-trigger" data-tab="courses">Cursos</button>
+                        <button class="tab-trigger" data-tab="analytics">Analytics</button>
+                    </div>
+
+                    <!-- Overview Tab -->
+                    <div class="tab-content active" id="overview">
+                        <div class="cards-grid">
+                            <!-- Recent Videos Card -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Videos Recientes</h3>
+                                    <p class="card-description">Tus últimos videos subidos</p>
+                                </div>
+                                <div class="card-content">
+                                    <div class="video-list">
+                                        <div class="video-item">
+                                            <img src="https://via.placeholder.com/120x68/f1f5f9/64748b?text=Video" alt="Video thumbnail" class="video-thumbnail">
+                                            <div class="video-info">
+                                                <div class="video-title">Acordes Básicos de Guitarra - Lección 1</div>
+                                                <div class="video-meta">
+                                                    <span>2,340 vistas</span>
+                                                    <span>•</span>
+                                                    <span class="badge badge-default">Publicado</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="video-item">
+                                            <img src="https://via.placeholder.com/120x68/f1f5f9/64748b?text=Video" alt="Video thumbnail" class="video-thumbnail">
+                                            <div class="video-info">
+                                                <div class="video-title">Ritmos de Ukelele para Principiantes</div>
+                                                <div class="video-meta">
+                                                    <span>1,890 vistas</span>
+                                                    <span>•</span>
+                                                    <span class="badge badge-default">Publicado</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="video-item">
+                                            <img src="https://via.placeholder.com/120x68/f1f5f9/64748b?text=Video" alt="Video thumbnail" class="video-thumbnail">
+                                            <div class="video-info">
+                                                <div class="video-title">Técnicas de Fingerpicking</div>
+                                                <div class="video-meta">
+                                                    <span>3,210 vistas</span>
+                                                    <span>•</span>
+                                                    <span class="badge badge-secondary">Borrador</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Popular Courses Card -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Cursos Populares</h3>
+                                    <p class="card-description">Cursos con mejor rendimiento</p>
+                                </div>
+                                <div class="card-content">
+                                    <div class="video-list">
+                                        <div class="video-item">
+                                            <div class="video-info">
+                                                <div class="video-title">Curso Completo de Guitarra</div>
+                                                <div class="video-meta">
+                                                    <span>234 estudiantes</span>
+                                                    <span>•</span>
+                                                    <span>⭐ 4.8</span>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="video-title" style="font-size: 18px;">$89.99</div>
+                                                <span class="badge badge-default">Activo</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="video-item">
+                                            <div class="video-info">
+                                                <div class="video-title">Ukelele desde Cero</div>
+                                                <div class="video-meta">
+                                                    <span>156 estudiantes</span>
+                                                    <span>•</span>
+                                                    <span>⭐ 4.9</span>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="video-title" style="font-size: 18px;">$59.99</div>
+                                                <span class="badge badge-default">Activo</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="video-item">
+                                            <div class="video-info">
+                                                <div class="video-title">Teoría Musical Básica</div>
+                                                <div class="video-meta">
+                                                    <span>89 estudiantes</span>
+                                                    <span>•</span>
+                                                    <span>⭐ 4.7</span>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="video-title" style="font-size: 18px;">$39.99</div>
+                                                <span class="badge badge-secondary">Borrador</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Videos Tab -->
+                    <div class="tab-content" id="videos">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <h2 style="font-size: 24px; font-weight: 700;">Gestión de Videos</h2>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-outline">
+                                    <i data-lucide="filter"></i>
+                                    Filtrar
+                                </button>
+                                <button class="btn btn-primary">
+                                    <i data-lucide="upload"></i>
+                                    Subir Video
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="video-list">
+                                    <div class="video-item" style="padding: 16px; border-bottom: 1px solid #f1f5f9;">
+                                        <img src="https://via.placeholder.com/80x45/f1f5f9/64748b?text=Video" alt="Video thumbnail" style="width: 80px; height: 45px; border-radius: 6px;">
+                                        <div class="video-info">
+                                            <div class="video-title">Acordes Básicos de Guitarra - Lección 1</div>
+                                            <div class="video-meta">
+                                                <span class="badge badge-outline">Guitarra</span>
+                                                <span>2,340 vistas</span>
+                                                <span>$450 ingresos</span>
+                                                <span class="badge badge-default">Publicado</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-ghost">
+                                            <i data-lucide="more-horizontal"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="video-item" style="padding: 16px; border-bottom: 1px solid #f1f5f9;">
+                                        <img src="https://via.placeholder.com/80x45/f1f5f9/64748b?text=Video" alt="Video thumbnail" style="width: 80px; height: 45px; border-radius: 6px;">
+                                        <div class="video-info">
+                                            <div class="video-title">Ritmos de Ukelele para Principiantes</div>
+                                            <div class="video-meta">
+                                                <span class="badge badge-outline">Ukelele</span>
+                                                <span>1,890 vistas</span>
+                                                <span>$320 ingresos</span>
+                                                <span class="badge badge-default">Publicado</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-ghost">
+                                            <i data-lucide="more-horizontal"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="video-item" style="padding: 16px;">
+                                        <img src="https://via.placeholder.com/80x45/f1f5f9/64748b?text=Video" alt="Video thumbnail" style="width: 80px; height: 45px; border-radius: 6px;">
+                                        <div class="video-info">
+                                            <div class="video-title">Técnicas de Fingerpicking</div>
+                                            <div class="video-meta">
+                                                <span class="badge badge-outline">Guitarra</span>
+                                                <span>3,210 vistas</span>
+                                                <span>$680 ingresos</span>
+                                                <span class="badge badge-secondary">Borrador</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-ghost">
+                                            <i data-lucide="more-horizontal"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Courses Tab -->
+                    <div class="tab-content" id="courses">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <h2 style="font-size: 24px; font-weight: 700;">Gestión de Cursos</h2>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus"></i>
+                                Crear Curso
+                            </button>
+                        </div>
+
+                        <div class="course-grid">
+                            <div class="course-card">
+                                <div class="course-header">
+                                    <div class="course-badges">
+                                        <span class="badge badge-outline">Guitarra</span>
+                                        <span class="badge badge-default">Activo</span>
+                                    </div>
+                                    <h3 class="course-title">Curso Completo de Guitarra</h3>
+                                </div>
+                                <div class="course-content">
+                                    <div class="course-stats">
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Precio:</span>
+                                            <span class="course-stat-value">$89.99</span>
+                                        </div>
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Estudiantes:</span>
+                                            <span class="course-stat-value">234</span>
+                                        </div>
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Rating:</span>
+                                            <span class="course-stat-value">⭐ 4.8</span>
+                                        </div>
+                                    </div>
+                                    <div class="course-actions">
+                                        <button class="btn btn-outline" style="flex: 1;">Editar</button>
+                                        <button class="btn btn-outline" style="flex: 1;">Ver</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="course-card">
+                                <div class="course-header">
+                                    <div class="course-badges">
+                                        <span class="badge badge-outline">Ukelele</span>
+                                        <span class="badge badge-default">Activo</span>
+                                    </div>
+                                    <h3 class="course-title">Ukelele desde Cero</h3>
+                                </div>
+                                <div class="course-content">
+                                    <div class="course-stats">
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Precio:</span>
+                                            <span class="course-stat-value">$59.99</span>
+                                        </div>
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Estudiantes:</span>
+                                            <span class="course-stat-value">156</span>
+                                        </div>
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Rating:</span>
+                                            <span class="course-stat-value">⭐ 4.9</span>
+                                        </div>
+                                    </div>
+                                    <div class="course-actions">
+                                        <button class="btn btn-outline" style="flex: 1;">Editar</button>
+                                        <button class="btn btn-outline" style="flex: 1;">Ver</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="course-card">
+                                <div class="course-header">
+                                    <div class="course-badges">
+                                        <span class="badge badge-outline">Teoría</span>
+                                        <span class="badge badge-secondary">Borrador</span>
+                                    </div>
+                                    <h3 class="course-title">Teoría Musical Básica</h3>
+                                </div>
+                                <div class="course-content">
+                                    <div class="course-stats">
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Precio:</span>
+                                            <span class="course-stat-value">$39.99</span>
+                                        </div>
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Estudiantes:</span>
+                                            <span class="course-stat-value">89</span>
+                                        </div>
+                                        <div class="course-stat">
+                                            <span class="course-stat-label">Rating:</span>
+                                            <span class="course-stat-value">⭐ 4.7</span>
+                                        </div>
+                                    </div>
+                                    <div class="course-actions">
+                                        <button class="btn btn-outline" style="flex: 1;">Editar</button>
+                                        <button class="btn btn-outline" style="flex: 1;">Ver</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Tab -->
+                    <div class="tab-content" id="analytics">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <h2 style="font-size: 24px; font-weight: 700;">Analytics</h2>
+                            <button class="btn btn-outline">
+                                <i data-lucide="calendar"></i>
+                                Últimos 30 días
+                            </button>
+                        </div>
+
+                        <div class="cards-grid">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Crecimiento de Suscriptores</h3>
+                                </div>
+                                <div class="card-content">
+                                    <div style="height: 200px; display: flex; align-items: center; justify-content: center; color: #64748b;">
+                                        <i data-lucide="trending-up" style="margin-right: 8px;"></i>
+                                        Gráfico de crecimiento
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Ingresos por Mes</h3>
+                                </div>
+                                <div class="card-content">
+                                    <div style="height: 200px; display: flex; align-items: center; justify-content: center; color: #64748b;">
+                                        <i data-lucide="bar-chart-3" style="margin-right: 8px;"></i>
+                                        Gráfico de ingresos
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Rendimiento por Categoría</h3>
+                            </div>
+                            <div class="card-content">
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <thead>
+                                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                                <th style="text-align: left; padding: 12px; font-weight: 500; color: #64748b;">Categoría</th>
+                                                <th style="text-align: left; padding: 12px; font-weight: 500; color: #64748b;">Videos</th>
+                                                <th style="text-align: left; padding: 12px; font-weight: 500; color: #64748b;">Visualizaciones</th>
+                                                <th style="text-align: left; padding: 12px; font-weight: 500; color: #64748b;">Ingresos</th>
+                                                <th style="text-align: left; padding: 12px; font-weight: 500; color: #64748b;">Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                                <td style="padding: 12px;">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <i data-lucide="guitar" style="margin-right: 8px; width: 16px; height: 16px;"></i>
+                                                        Guitarra
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 12px;">15</td>
+                                                <td style="padding: 12px;">45,230</td>
+                                                <td style="padding: 12px;">$8,450</td>
+                                                <td style="padding: 12px;">4.8</td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                                <td style="padding: 12px;">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <i data-lucide="music" style="margin-right: 8px; width: 16px; height: 16px;"></i>
+                                                        Ukelele
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 12px;">8</td>
+                                                <td style="padding: 12px;">23,100</td>
+                                                <td style="padding: 12px;">$4,200</td>
+                                                <td style="padding: 12px;">4.9</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 12px;">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <i data-lucide="book-open" style="margin-right: 8px; width: 16px; height: 16px;"></i>
+                                                        Teoría
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 12px;">6</td>
+                                                <td style="padding: 12px;">12,800</td>
+                                                <td style="padding: 12px;">$2,100</td>
+                                                <td style="padding: 12px;">4.7</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Upload Video Modal -->
+    <div class="modal" id="uploadVideoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Subir Nuevo Video</h2>
+                <button class="modal-close" onclick="closeModal('uploadVideoModal')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadVideoForm">
+                    <div class="form-group">
+                        <label class="form-label">Archivo de Video</label>
+                        <div class="file-upload" onclick="document.getElementById('videoFile').click()">
+                            <div class="file-upload-icon">
+                                <i data-lucide="upload" style="width: 32px; height: 32px;"></i>
+                            </div>
+                            <div class="file-upload-text">Arrastra tu video aquí o haz clic para seleccionar</div>
+                            <div class="file-upload-hint">MP4, MOV, AVI (máx. 2GB)</div>
+                            <input type="file" id="videoFile" accept="video/*" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="videoTitle">Título del Video</label>
+                        <input type="text" id="videoTitle" class="form-input" placeholder="Ej: Acordes Básicos de Guitarra - Lección 1">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="videoCategory">Categoría</label>
+                            <select id="videoCategory" class="form-select">
+                                <option value="">Selecciona una categoría</option>
+                                <option value="guitarra">Guitarra</option>
+                                <option value="ukelele">Ukelele</option>
+                                <option value="bajo">Bajo</option>
+                                <option value="teoria">Teoría Musical</option>
+                                <option value="composicion">Composición</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="videoPrice">Precio ($)</label>
+                            <input type="number" id="videoPrice" class="form-input" placeholder="29.99" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="videoDescription">Descripción</label>
+                        <textarea id="videoDescription" class="form-textarea" placeholder="Describe el contenido de tu video, qué aprenderán los estudiantes..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="videoDuration">Duración (minutos)</label>
+                            <input type="number" id="videoDuration" class="form-input" placeholder="45">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="videoLevel">Nivel</label>
+                            <select id="videoLevel" class="form-select">
+                                <option value="">Selecciona el nivel</option>
+                                <option value="principiante">Principiante</option>
+                                <option value="intermedio">Intermedio</option>
+                                <option value="avanzado">Avanzado</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('uploadVideoModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="submitVideoForm()">Subir Video</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Course Modal -->
+    <div class="modal" id="createCourseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Crear Nuevo Curso</h2>
+                <button class="modal-close" onclick="closeModal('createCourseModal')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createCourseForm">
+                    <div class="form-group">
+                        <label class="form-label" for="courseTitle">Título del Curso</label>
+                        <input type="text" id="courseTitle" class="form-input" placeholder="Ej: Guitarra para Principiantes">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="courseCategory">Categoría</label>
+                            <select id="courseCategory" class="form-select">
+                                <option value="">Selecciona categoría</option>
+                                <option value="guitarra">Guitarra</option>
+                                <option value="ukelele">Ukelele</option>
+                                <option value="bajo">Bajo</option>
+                                <option value="teoria">Teoría Musical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="coursePrice">Precio ($)</label>
+                            <input type="number" id="coursePrice" class="form-input" placeholder="49.99" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="courseDescription">Descripción</label>
+                        <textarea id="courseDescription" class="form-textarea" placeholder="Describe qué aprenderán los estudiantes en este curso..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="courseLevel">Nivel</label>
+                            <select id="courseLevel" class="form-select">
+                                <option value="">Nivel del curso</option>
+                                <option value="principiante">Principiante</option>
+                                <option value="intermedio">Intermedio</option>
+                                <option value="avanzado">Avanzado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="courseDuration">Duración estimada (horas)</label>
+                            <input type="number" id="courseDuration" class="form-input" placeholder="10">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('createCourseModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="submitCourseForm()">Crear Curso</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Playlist Modal -->
+    <div class="modal" id="createPlaylistModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Crear Nueva Playlist</h2>
+                <button class="modal-close" onclick="closeModal('createPlaylistModal')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createPlaylistForm">
+                    <div class="form-group">
+                        <label class="form-label" for="playlistTitle">Nombre de la Playlist</label>
+                        <input type="text" id="playlistTitle" class="form-input" placeholder="Ej: Curso Básico de Guitarra">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="playlistDescription">Descripción</label>
+                        <textarea id="playlistDescription" class="form-textarea" placeholder="Describe el contenido de esta playlist..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="playlistCategory">Categoría</label>
+                        <select id="playlistCategory" class="form-select">
+                            <option value="">Selecciona categoría</option>
+                            <option value="guitarra">Guitarra</option>
+                            <option value="ukelele">Ukelele</option>
+                            <option value="bajo">Bajo</option>
+                            <option value="teoria">Teoría Musical</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('createPlaylistModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="submitPlaylistForm()">Crear Playlist</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('collapsed');
+            overlay.classList.toggle('active');
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Tab functionality
+        const tabTriggers = document.querySelectorAll('.tab-trigger');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const sidebarButtons = document.querySelectorAll('.sidebar-menu-button');
+
+        function switchTab(tabId) {
+            // Update tab triggers
+            tabTriggers.forEach(trigger => {
+                trigger.classList.remove('active');
+                if (trigger.dataset.tab === tabId) {
+                    trigger.classList.add('active');
+                }
+            });
+
+            // Update tab contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
+
+            // Update sidebar buttons
+            sidebarButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.tab === tabId) {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        // Add event listeners for tab triggers
+        tabTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                switchTab(trigger.dataset.tab);
+            });
+        });
+
+        // Add event listeners for sidebar buttons
+        sidebarButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.dataset.tab) {
+                    switchTab(button.dataset.tab);
+                    
+                    // Close sidebar on mobile after selection
+                    if (window.innerWidth <= 768) {
+                        toggleSidebar();
+                    }
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('collapsed');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial sidebar state on mobile
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+            }
+        });
+
+        // Dropdown functionality
+        const createButton = document.getElementById('createButton');
+        const createDropdown = document.getElementById('createDropdown');
+
+        createButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            createDropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!createButton.contains(e.target) && !createDropdown.contains(e.target)) {
+                createDropdown.classList.remove('active');
+            }
+        });
+
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            createDropdown.classList.remove('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Re-initialize icons for the modal
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target.id);
+            }
+        });
+
+        // Form submission functions
+        function submitVideoForm() {
+            const form = document.getElementById('uploadVideoForm');
+            const formData = new FormData(form);
+            
+            // Get form values
+            const videoData = {
+                title: document.getElementById('videoTitle').value,
+                category: document.getElementById('videoCategory').value,
+                price: document.getElementById('videoPrice').value,
+                description: document.getElementById('videoDescription').value,
+                duration: document.getElementById('videoDuration').value,
+                level: document.getElementById('videoLevel').value,
+                file: document.getElementById('videoFile').files[0]
+            };
+            
+            // Validate required fields
+            if (!videoData.title || !videoData.category || !videoData.price) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+            
+            // Simulate upload process
+            alert('Video subido exitosamente!\n\nTítulo: ' + videoData.title + '\nCategoría: ' + videoData.category + '\nPrecio: $' + videoData.price);
+            
+            // Reset form and close modal
+            form.reset();
+            closeModal('uploadVideoModal');
+        }
+
+        function submitCourseForm() {
+            const form = document.getElementById('createCourseForm');
+            
+            const courseData = {
+                title: document.getElementById('courseTitle').value,
+                category: document.getElementById('courseCategory').value,
+                price: document.getElementById('coursePrice').value,
+                description: document.getElementById('courseDescription').value,
+                level: document.getElementById('courseLevel').value,
+                duration: document.getElementById('courseDuration').value
+            };
+            
+            if (!courseData.title || !courseData.category || !courseData.price) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+            
+            alert('Curso creado exitosamente!\n\nTítulo: ' + courseData.title + '\nCategoría: ' + courseData.category + '\nPrecio: $' + courseData.price);
+            
+            form.reset();
+            closeModal('createCourseModal');
+        }
+
+        function submitPlaylistForm() {
+            const form = document.getElementById('createPlaylistForm');
+            
+            const playlistData = {
+                title: document.getElementById('playlistTitle').value,
+                description: document.getElementById('playlistDescription').value,
+                category: document.getElementById('playlistCategory').value
+            };
+            
+            if (!playlistData.title || !playlistData.category) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+            
+            alert('Playlist creada exitosamente!\n\nNombre: ' + playlistData.title + '\nCategoría: ' + playlistData.category);
+            
+            form.reset();
+            closeModal('createPlaylistModal');
+        }
+
+        // File upload functionality
+        document.getElementById('videoFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const fileUpload = document.querySelector('.file-upload');
+                fileUpload.innerHTML = `
+                    <div class="file-upload-icon">
+                        <i data-lucide="check-circle" style="width: 32px; height: 32px; color: #10b981;"></i>
+                    </div>
+                    <div class="file-upload-text" style="color: #10b981;">Archivo seleccionado: ${file.name}</div>
+                    <div class="file-upload-hint">Tamaño: ${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                `;
+                lucide.createIcons();
+            }
+        });
+
+        // Drag and drop functionality
+        const fileUpload = document.querySelector('.file-upload');
+        if (fileUpload) {
+            fileUpload.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUpload.classList.add('dragover');
+            });
+
+            fileUpload.addEventListener('dragleave', () => {
+                fileUpload.classList.remove('dragover');
+            });
+
+            fileUpload.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUpload.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    document.getElementById('videoFile').files = files;
+                    // Trigger change event
+                    const event = new Event('change', { bubbles: true });
+                    document.getElementById('videoFile').dispatchEvent(event);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
