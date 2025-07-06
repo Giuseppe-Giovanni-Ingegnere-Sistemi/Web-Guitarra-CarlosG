@@ -52,7 +52,7 @@
         .brand-icon {
             width: 40px;
             height: 40px;
-            background: #f97316;
+            background: #dc2626;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -110,7 +110,7 @@
         }
 
         .sidebar-menu-button.active {
-            background: #0f172a;
+            background: #dc2626;
             color: white;
         }
 
@@ -128,7 +128,7 @@
         .user-avatar {
             width: 40px;
             height: 40px;
-            background: #f97316;
+            background: #dc2626;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -232,12 +232,12 @@
         }
 
         .btn-primary {
-            background: #0f172a;
+            background: #dc2626;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #1e293b;
+            background: #b91c1c;
         }
 
         .btn-ghost {
@@ -428,7 +428,7 @@
         }
 
         .badge-default {
-            background: #0f172a;
+            background: #dc2626;
             color: white;
         }
 
@@ -488,7 +488,7 @@
 
         .course-stat {
             display: flex;
-            justify-between;
+            justify-content: space-between;
             align-items: center;
             font-size: 14px;
         }
@@ -843,7 +843,7 @@
             <div class="sidebar-header">
                 <div class="sidebar-brand">
                     <div class="brand-icon">
-                        <i data-lucide="guitar"></i>
+                        <i data-lucide="book-open"></i>
                     </div>
                     <div class="brand-text">
                         <h2>Music Studio</h2>
@@ -902,7 +902,7 @@
             <div class="sidebar-footer">
                 <div class="user-info">
                     <div class="user-avatar">
-                        <i data-lucide="music"></i>
+                        <i data-lucide="book-open"></i>
                     </div>
                     <div class="user-details">
                         <h3>Instructor</h3>
@@ -916,7 +916,7 @@
         <div class="main-content">
             <!-- Header -->
             <header class="header">
-                
+               
 
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Buscar videos, cursos...">
@@ -1123,10 +1123,6 @@
                                     <i data-lucide="filter"></i>
                                     Filtrar
                                 </button>
-                                <button class="btn btn-primary">
-                                    <i data-lucide="upload"></i>
-                                    Subir Video
-                                </button>
                             </div>
                         </div>
 
@@ -1171,8 +1167,6 @@
                                             <div class="video-title">Técnicas de Fingerpicking</div>
                                             <div class="video-meta">
                                                 <span class="badge badge-outline">Guitarra</span>
-                                                <span>3,210 vistas</span>
-                                                <span>$680 ingresos</span>
                                                 <span class="badge badge-secondary">Borrador</span>
                                             </div>
                                         </div>
@@ -1189,7 +1183,7 @@
                     <div class="tab-content" id="courses">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                             <h2 style="font-size: 24px; font-weight: 700;">Gestión de Cursos</h2>
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" id="createCourseBtn">
                                 <i data-lucide="plus"></i>
                                 Crear Curso
                             </button>
@@ -1648,6 +1642,15 @@
             if (window.innerWidth <= 768) {
                 sidebar.classList.add('collapsed');
             }
+
+            // Add event listener for create course button
+            const createCourseBtn = document.getElementById('createCourseBtn');
+            if (createCourseBtn) {
+                createCourseBtn.addEventListener('click', () => openModal('createCourseModal'));
+            }
+
+            // Re-initialize icons after any DOM changes
+            lucide.createIcons();
         });
 
         // Dropdown functionality
