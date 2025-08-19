@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MusicMaster Academy - Cursos de Música Premium</title>
+    <!-- Actualizando título a Musidemy -->
+    <title>Musidemy - Academia Musical de Cursos en Línea</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,10 +14,14 @@
                         primary: '#0891b2',
                         accent: '#f97316',
                         card: '#ffffff',
-                        background: '#ffffff',
-                        foreground: '#0f172a',
-                        'muted-foreground': '#64748b',
-                        border: '#e2e8f0'
+                        background: '#f8fafc', // Fondo gris muy claro en lugar de blanco puro
+                        foreground: '#0f172a', // Texto negro más suave
+                        'muted-foreground': '#475569', // Texto secundario con mejor contraste
+                        border: '#e2e8f0',
+                        // Agregando colores adicionales para mejor diseño
+                        'card-bg': '#ffffff',
+                        'text-primary': '#1e293b',
+                        'text-secondary': '#64748b'
                     },
                     fontFamily: {
                         'montserrat': ['Montserrat', 'sans-serif'],
@@ -28,251 +33,162 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .gradient-text {
-            background: linear-gradient(to right, #0891b2, #f97316);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+    .gradient-text {
+        background: linear-gradient(to right, #0891b2, #f97316);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .card-hover {
+        transition: all 0.3s ease;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+    }
+    .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border-color: #cbd5e1;
+    }
+    .nav-floating {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .hero-gradient {
+        background: linear-gradient(135deg, rgba(8, 145, 178, 0.08) 0%, transparent 50%, rgba(249, 115, 22, 0.12) 100%);
+    }
+    
+        .level-gradient-1 {
+            background: linear-gradient(135deg, #10b981, #059669);
         }
-        .card-hover {
-            transition: all 0.3s ease;
+        .level-gradient-2 {
+            background: linear-gradient(135deg, #0891b2, #0e7490);
         }
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .level-gradient-3 {
+            background: linear-gradient(135deg, #f97316, #ea580c);
         }
-        .nav-floating {
-            backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.8);
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(8, 145, 178, 0.05) 0%, transparent 50%, rgba(249, 115, 22, 0.1) 100%);
+        .notification.show {
+            transform: translateX(0);
         }
-        .feature-gradient-1 { background: linear-gradient(135deg, #fbbf24, #f97316); }
-        .feature-gradient-2 { background: linear-gradient(135deg, #0891b2, #06b6d4); }
-        .feature-gradient-3 { background: linear-gradient(135deg, #f97316, #ef4444); }
-        .feature-gradient-4 { background: linear-gradient(135deg, #a855f7, #ec4899); }
-        .level-gradient-1 { background: linear-gradient(135deg, #10b981, #059669); }
-        .level-gradient-2 { background: linear-gradient(135deg, #0891b2, #06b6d4); }
-        .level-gradient-3 { background: linear-gradient(135deg, #f97316, #ef4444); }
-        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .notification.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .notification.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        .notification.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
     </style>
 </head>
-<body class="min-h-screen bg-background font-open-sans">
-    <!-- Header -->
-    <header class="relative">
-        <div class="absolute inset-0 hero-gradient"></div>
-        <div class="relative container mx-auto px-4 py-6">
+<body class="font-open-sans bg-background text-foreground min-h-screen">
+    <!-- Agregando min-h-screen y mejorando clases de color -->
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-floating border-b border-border/50">
+        <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
+                    <!-- Logo actualizado a Musidemy -->
                     <div class="relative">
                         <div class="absolute inset-0 bg-primary/20 rounded-full blur-md"></div>
-                        <div class="relative bg-primary p-3 rounded-full">
-                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="relative bg-gradient-to-br from-primary to-accent p-2 rounded-full">
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
                             </svg>
                         </div>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-black text-foreground font-montserrat">MusicMaster</h1>
+                        <!-- Cambiando nombre a Musidemy -->
+                        <span class="font-black text-lg font-montserrat">Musidemy</span>
                         <p class="text-xs text-muted-foreground font-medium">ACADEMY</p>
                     </div>
                 </div>
 
-                <nav class="hidden lg:flex items-center gap-1 nav-floating border border-border/50 rounded-full p-2 shadow-lg">
-                    <a href="#cursos" class="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-full transition-all duration-200">Cursos</a>
-                    <a href="#instructores" class="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-full transition-all duration-200">Instructores</a>
-                    <a href="#afinador" class="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-full transition-all duration-200">Afinador</a>
-                    <div class="w-px h-6 bg-border mx-2"></div>
-                    <!-- Agregando botón del carrito de compras -->
-                    <button id="cart-btn" class="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-full transition-all duration-200">
-                        <svg class="h-5 w-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#cursos" class="text-sm font-medium hover:text-primary transition-colors">Cursos</a>
+                    <a href="#instructor" class="text-sm font-medium hover:text-primary transition-colors">Instructor</a>
+                    <a href="#afinador" class="text-sm font-medium hover:text-primary transition-colors">Afinador</a>
+                    <!-- Agregando enlace a clases personalizadas -->
+                    <a href="#clases-personalizadas" class="text-sm font-medium hover:text-primary transition-colors">Clases Personalizadas</a>
+                    <a href="#contenido-gratis" class="text-sm font-medium hover:text-primary transition-colors">Contenido Gratis</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <!-- Cart Button -->
+                    <button id="cart-btn" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
                         </svg>
-                        Carrito
-                        <span id="cart-count" class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
                     </button>
-                    <button class="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-full transition-all duration-200">Iniciar Sesión</button>
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 rounded-full transition-all duration-200">Premium</button>
-                </nav>
+                    
+                    <button class="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white px-6 py-2 rounded-xl font-medium text-sm">
+                        Iniciar Sesión
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="relative py-20 px-4 overflow-hidden">
-        <div class="absolute inset-0 hero-gradient"></div>
-        <div class="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-10 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+    <section class="relative min-h-screen flex items-center justify-center hero-gradient pt-20 px-4">
+        <div class="container mx-auto text-center">
+            <div class="max-w-4xl mx-auto">
+            <!-- Texto principal actualizado con Musidemy -->
+            <h1 class="text-5xl md:text-7xl font-black mb-6 font-montserrat leading-tight text-foreground">
+                <span class="gradient-text">Musidemy</span> es la academia musical de 
+                <span class="gradient-text">cursos en línea</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
+                Aprende música desde casa con nuestros cursos profesionales y clases personalizadas con Carlos Mendoza
+            </p>
 
-        <div class="relative container mx-auto max-w-7xl">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-8">
-                    <div class="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-full px-4 py-2">
-                        <div class="w-2 h-2 bg-primary rounded-full animate-pulse-slow"></div>
-                        <span class="text-sm font-medium text-primary">+50,000 estudiantes confiando en nosotros</span>
+            <!-- Agregando mensaje de regalo del curso con mejor contraste -->
+            <div class="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-2xl p-6 mb-8 max-w-2xl mx-auto">
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <div class="bg-gradient-to-r from-emerald-500 to-green-600 p-2 rounded-full">
+                        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                        </svg>
                     </div>
-
-                    <div class="space-y-6">
-                        <h2 class="text-5xl md:text-6xl font-black text-foreground font-montserrat leading-tight">
-                            Domina la
-                            <span class="block gradient-text">Música</span>
-                            <span class="text-3xl md:text-4xl font-semibold text-muted-foreground">como un profesional</span>
-                        </h2>
-
-                        <p class="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                            Cursos premium diseñados por maestros reconocidos mundialmente. Videos en 4K, contenido descargable y acceso de por vida.
-                        </p>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="group relative overflow-hidden bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-lg px-8 py-4 rounded-2xl text-white font-medium transition-all duration-300">
-                            <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <span class="relative flex items-center">
-                                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z"/>
-                                </svg>
-                                Explorar Cursos
-                            </span>
-                        </button>
-                        <button class="text-lg px-8 py-4 rounded-2xl border-2 border-border hover:bg-primary/5 bg-transparent transition-all duration-300 font-medium">
-                            <span class="flex items-center">
-                                <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                </svg>
-                                Afinador Gratis
-                            </span>
-                        </button>
-                    </div>
-
-                    <div class="flex items-center gap-8 pt-4">
-                        <div class="flex items-center gap-2">
-                            <div class="flex -space-x-2">
-                                <div class="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full border-2 border-background"></div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full border-2 border-background"></div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full border-2 border-background"></div>
-                                <div class="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full border-2 border-background"></div>
-                            </div>
-                            <span class="text-sm text-muted-foreground">Miles de estudiantes satisfechos</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <svg class="h-4 w-4 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                            <span class="font-semibold">4.9</span>
-                            <span class="text-sm text-muted-foreground">(2,847 reseñas)</span>
-                        </div>
-                    </div>
+                    <h3 class="text-lg font-bold text-emerald-800">¡Oferta Especial!</h3>
                 </div>
-
-                <div class="lg:col-span-5 relative">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl transform rotate-6"></div>
-                        <img src="img/Vert.jpg" alt="Instructor profesional de música" class="relative rounded-3xl shadow-2xl w-full">
-
-
-
-                        <div class="absolute -top-6 -left-6 bg-white/90 backdrop-blur-xl border border-border/50 rounded-2xl p-4 shadow-xl">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-gradient-to-br from-primary to-accent p-2 rounded-xl">
-                                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-sm">Certificación</p>
-                                    <p class="text-xs text-muted-foreground">Reconocida mundialmente</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="absolute -bottom-6 -right-6 bg-white/90 backdrop-blur-xl border border-border/50 rounded-2xl p-4 shadow-xl">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-gradient-to-br from-accent to-primary p-2 rounded-xl">
-                                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-sm">Progreso Real</p>
-                                    <p class="text-xs text-muted-foreground">Resultados garantizados</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-20 px-4 bg-gradient-to-b from-transparent to-gray-50/30">
-        <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <span class="mb-4 bg-primary/10 text-primary border border-primary/20 rounded-full px-4 py-2 text-sm font-medium inline-block">¿Por qué elegirnos?</span>
-                <h3 class="text-4xl font-black text-foreground mb-6 font-montserrat">
-                    La experiencia de aprendizaje
-                    <span class="block text-primary">más avanzada</span>
-                </h3>
+                <p class="text-emerald-700 font-medium text-lg">
+                    Regístrate y te regalo el curso de lenguaje musical
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative">
-                        <div class="w-12 h-12 feature-gradient-1 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="font-montserrat font-bold text-lg mb-3">Aprendizaje Acelerado</h4>
-                        <p class="text-muted-foreground leading-relaxed">Metodología probada que reduce el tiempo de aprendizaje en un 60%</p>
-                    </div>
-                </div>
-
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative">
-                        <div class="w-12 h-12 feature-gradient-2 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="font-montserrat font-bold text-lg mb-3">Personalizado</h4>
-                        <p class="text-muted-foreground leading-relaxed">Rutas de aprendizaje adaptadas a tu nivel y objetivos específicos</p>
-                    </div>
-                </div>
-
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative">
-                        <div class="w-12 h-12 feature-gradient-3 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="font-montserrat font-bold text-lg mb-3">Calidad Premium</h4>
-                        <p class="text-muted-foreground leading-relaxed">Videos en 4K, audio profesional y contenido actualizado constantemente</p>
-                    </div>
-                </div>
-
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative">
-                        <div class="w-12 h-12 feature-gradient-4 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="font-montserrat font-bold text-lg mb-3">Comunidad Global</h4>
-                        <p class="text-muted-foreground leading-relaxed">Conecta con músicos de todo el mundo y comparte tu progreso</p>
-                    </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button class="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg">
+                        Explorar Cursos
+                        <svg class="ml-2 h-5 w-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                    
+                    <button class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors">
+                        Clases Personalizadas
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Courses Section -->
+    <!-- Actualizando cursos según orden especificado: guitarra, piano, composición, ukulele, armonía, producción musical, sibelius -->
     <section id="cursos" class="py-20 px-4">
         <div class="container mx-auto">
             <div class="text-center mb-16">
@@ -286,1087 +202,500 @@
                 </p>
             </div>
 
-            <!-- Course Categories -->
-            <div class="grid md:grid-cols-3 gap-8 mb-20">
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-center p-8">
-                        <div class="w-16 h-16 level-gradient-1 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-2xl font-black text-white">12</span>
-                        </div>
-                        <span class="mb-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 rounded-full px-4 py-1 text-sm font-medium inline-block">Principiante</span>
-                        <h4 class="font-montserrat font-bold text-xl mb-3">Fundamentos Sólidos</h4>
-                        <p class="text-muted-foreground leading-relaxed mb-6">Construye una base musical sólida desde cero</p>
-                        <button class="w-full group-hover:bg-primary group-hover:text-white transition-colors duration-300 rounded-xl bg-transparent border border-border px-4 py-2 font-medium">
-                            Explorar Cursos
-                            <svg class="ml-2 h-4 w-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-center p-8">
-                        <div class="w-16 h-16 level-gradient-2 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-2xl font-black text-white">18</span>
-                        </div>
-                        <span class="mb-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-4 py-1 text-sm font-medium inline-block">Intermedio</span>
-                        <h4 class="font-montserrat font-bold text-xl mb-3">Técnica Avanzada</h4>
-                        <p class="text-muted-foreground leading-relaxed mb-6">Desarrolla habilidades técnicas y expresivas</p>
-                        <button class="w-full group-hover:bg-primary group-hover:text-white transition-colors duration-300 rounded-xl bg-transparent border border-border px-4 py-2 font-medium">
-                            Explorar Cursos
-                            <svg class="ml-2 h-4 w-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-br from-orange-50 to-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative text-center p-8">
-                        <div class="w-16 h-16 level-gradient-3 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-2xl font-black text-white">8</span>
-                        </div>
-                        <span class="mb-4 bg-gradient-to-r from-accent to-red-400 text-white border-0 rounded-full px-4 py-1 text-sm font-medium inline-block">Profesional</span>
-                        <h4 class="font-montserrat font-bold text-xl mb-3">Maestría Musical</h4>
-                        <p class="text-muted-foreground leading-relaxed mb-6">Alcanza el nivel de los grandes maestros</p>
-                        <button class="w-full group-hover:bg-primary group-hover:text-white transition-colors duration-300 rounded-xl bg-transparent border border-border px-4 py-2 font-medium">
-                            Explorar Cursos
-                            <svg class="ml-2 h-4 w-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Courses -->
             <div class="space-y-8">
-                <h4 class="text-2xl font-bold text-center font-montserrat">Cursos Destacados</h4>
+                <h4 class="text-2xl font-bold text-center font-montserrat">Nuestros Cursos</h4>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Course 1 -->
+                    <!-- Curso 1: Guitarra (3 módulos - $849) -->
                     <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
                         <div class="relative overflow-hidden">
-                            <img src="img/Armonía1.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=250&fit=crop" alt="Curso de Guitarra" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                       
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">3 Módulos</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Armonia 1</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Curso de Guitarra</h5>
+                            <p class="text-muted-foreground text-sm mb-3">Domina la guitarra desde principiante hasta avanzado</p>
                             <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                                 <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
+                                    <span class="text-2xl font-bold text-primary font-montserrat">$849</span>
+                                    <span class="text-sm text-muted-foreground">Paquete 3 módulos</span>
                                 </div>
                                 <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Course 2 -->
+                    <!-- Curso 2: Piano (2 módulos - $549) -->
                     <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
                         <div class="relative overflow-hidden">
-                            <img src="img/Armonía2.png" alt="Armonia 2" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&h=250&fit=crop" alt="Curso de Piano" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-accent to-red-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Avanzado</span>
-                 
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">2 Módulos</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Armonia 2</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Crea música profesional desde casa</p>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Curso de Piano</h5>
+                            <p class="text-muted-foreground text-sm mb-3">Aprende piano desde cero hasta nivel intermedio</p>
                             <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">AR</div>
-                                <span class="text-xs font-medium">Carlos Gallardo/span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.8</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>2,156</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span></span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                    <span></span>
-                                </div>
+                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$199</span>
-                                    <span class="text-sm text-muted-foreground line-through">$399</span>
-                                </div>
-                                <button class="bg-gradient-to-r from-accent to-red-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Course 3 -->
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                        <div class="relative overflow-hidden">
-                            <img src="img/Armonía3.png" alt="Armonia 3" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Principiante</span>
-                          
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Armonia 3</h5>
-                            <p class="text-muted-foreground text-sm mb-3"></p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CG</div>
-                                <span class="text-xs font-medium">Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>4,521</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span></span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                    <span></span>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$89</span>
-                                    <span class="text-sm text-muted-foreground line-through">$179</span>
+                                    <span class="text-2xl font-bold text-primary font-montserrat">$549</span>
+                                    <span class="text-sm text-muted-foreground">Paquete 2 módulos</span>
                                 </div>
                                 <button class="bg-gradient-to-r from-green-400 to-emerald-500 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Curso 3: Composición ($349) -->
                     <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
                         <div class="relative overflow-hidden">
-                            <img src="img/Composicion1.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop" alt="Curso de Composición" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gradient-to-r from-purple-400 to-pink-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Individual</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Composicion 1</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Curso de Composición</h5>
+                            <p class="text-muted-foreground text-sm mb-3">Crea tus propias composiciones musicales</p>
                             <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                                 <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
+                                    <span class="text-2xl font-bold text-primary font-montserrat">$349</span>
+                                    <span class="text-sm text-muted-foreground">Curso individual</span>
                                 </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
+                                <button class="bg-gradient-to-r from-purple-400 to-pink-500 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Curso 4: Ukulele ($349) -->
                     <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
                         <div class="relative overflow-hidden">
-                            <img src="img/Composición2.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=250&fit=crop" alt="Curso de Ukulele" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Individual</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Composicion 2</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Curso de Ukulele</h5>
+                            <p class="text-muted-foreground text-sm mb-3">Domina el ukulele de forma divertida</p>
                             <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                                 <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
+                                    <span class="text-2xl font-bold text-primary font-montserrat">$349</span>
+                                    <span class="text-sm text-muted-foreground">Curso individual</span>
                                 </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
+                                <button class="bg-gradient-to-r from-yellow-400 to-orange-500 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Curso 5: Armonía ($349) -->
                     <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
                         <div class="relative overflow-hidden">
-                            <img src="img/Guitarra1.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400&h=250&fit=crop" alt="Curso de Armonía" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gradient-to-r from-indigo-400 to-purple-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Individual</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Guitarra 1</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Curso de Armonía</h5>
+                            <p class="text-muted-foreground text-sm mb-3">Entiende la teoría musical profundamente</p>
                             <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                                 <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
+                                    <span class="text-2xl font-bold text-primary font-montserrat">$349</span>
+                                    <span class="text-sm text-muted-foreground">Curso individual</span>
                                 </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
+                                <button class="bg-gradient-to-r from-indigo-400 to-purple-500 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
+
+                    <!-- Curso 6: Producción Musical (Próximamente) -->
+                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-lg opacity-75">
                         <div class="relative overflow-hidden">
-                            <img src="img/Guitarra2.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=250&fit=crop" alt="Producción Musical" class="w-full h-48 object-cover grayscale">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gray-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Próximamente</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Guitarra 2</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2 text-gray-600">Producción Musical</h5>
+                            <p class="text-gray-500 text-sm mb-3">Crea música profesional desde casa</p>
+                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                                <div class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
+                                    <span class="text-2xl font-bold text-gray-500 font-montserrat">$349</span>
+                                    <span class="text-sm text-gray-400">Próximamente</span>
                                 </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
+                                <button disabled class="bg-gray-400 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium cursor-not-allowed">
+                                    Próximamente
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
+
+                    <!-- Curso 7: Sibelius (Próximamente) -->
+                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-lg opacity-75">
                         <div class="relative overflow-hidden">
-                            <img src="img/Guitarra3.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop" alt="Sibelius" class="w-full h-48 object-cover grayscale">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
+                            <span class="absolute top-4 left-4 bg-gray-500 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Próximamente</span>
                         </div>
 
                         <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Guitarra 3</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
+                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2 text-gray-600">Curso de Sibelius</h5>
+                            <p class="text-gray-500 text-sm mb-3">Notación musical profesional</p>
+                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                                <div class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
+                                <span class="text-xs font-medium">Carlos Mendoza</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
+                                    <span class="text-2xl font-bold text-gray-500 font-montserrat">$349</span>
+                                    <span class="text-sm text-gray-400">Próximamente</span>
                                 </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
+                                <button disabled class="bg-gray-400 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium cursor-not-allowed">
+                                    Próximamente
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                        <div class="relative overflow-hidden">
-                            <img src="img/Horiz.jpg" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Horiz</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
-                                </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                        <div class="relative overflow-hidden">
-                            <img src="img/Lenguaje musical.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Lenguaje musical</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
-                                </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                        <div class="relative overflow-hidden">
-                            <img src="img/Sibelius.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Sibelius/h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
-                                </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                        <div class="relative overflow-hidden">
-                            <img src="img/Ukulele1.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Ukulele 1</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
-                                </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-hover group relative overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg">
-                        <div class="relative overflow-hidden">
-                            <img src="img/Ukulele2.png" alt="Armonia 1" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            <span class="absolute top-4 left-4 bg-gradient-to-r from-primary to-cyan-400 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Intermedio</span>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full"></div>
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">
-                                    <svg class="h-4 w-4 mr-1 inline" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    Preview
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="p-6">
-                            <h5 class="font-montserrat font-bold text-lg leading-tight mb-2">Ukulele 2</h5>
-                            <p class="text-muted-foreground text-sm mb-3">Técnicas avanzadas de guitarra clásica</p>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                                <div class="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xs font-bold">CM</div>
-                                <span class="text-xs font-medium">Maestro Carlos Gallardo</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 text-xs text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                    </svg>
-                                    <span class="font-medium">4.9</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                    </svg>
-                                    <span>3,247</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                   
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary font-montserrat">$149</span>
-                                    <span class="text-sm text-muted-foreground line-through">$299</span>
-                                </div>
-                                <button class="bg-gradient-to-r from-primary to-cyan-400 hover:opacity-90 text-white border-0 rounded-xl px-4 py-2 text-sm font-medium add-to-cart-btn">
-                                    <!-- Cambiando botón de comprar por agregar al carrito -->
-                                    <svg class="h-3 w-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                                    </svg>
-                                    Agregar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-16 px-4 bg-primary/5">
-        <div class="container mx-auto">
-            <div class="grid md:grid-cols-4 gap-8 text-center">
-                <div class="flex flex-col items-center">
-                    <div class="bg-primary/10 p-4 rounded-full mb-4">
-                        <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-3xl font-bold text-foreground mb-2 font-montserrat">50,000+</div>
-                    <div class="text-muted-foreground">Estudiantes Activos</div>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="bg-primary/10 p-4 rounded-full mb-4">
-                        <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-3xl font-bold text-foreground mb-2 font-montserrat">200+</div>
-                    <div class="text-muted-foreground">Horas de Contenido</div>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="bg-primary/10 p-4 rounded-full mb-4">
-                        <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-3xl font-bold text-foreground mb-2 font-montserrat">98%</div>
-                    <div class="text-muted-foreground">Satisfacción</div>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="bg-primary/10 p-4 rounded-full mb-4">
-                        <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <div class="text-3xl font-bold text-foreground mb-2 font-montserrat">24/7</div>
-                    <div class="text-muted-foreground">Soporte Premium</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Instructor Profile Section -->
-    <section id="instructores" class="py-20 px-4">
+    <!-- Agregando sección de contenido gratuito con videos de YouTube -->
+    <!-- Free Content Section -->
+    <section id="contenido-gratis" class="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div class="container mx-auto">
             <div class="text-center mb-16">
-                <span class="mb-4 bg-primary/10 text-primary border border-primary/20 rounded-full px-4 py-2 text-sm font-medium inline-block">Conoce a tu Maestro</span>
                 <h3 class="text-4xl font-black text-foreground mb-6 font-montserrat">
-                    Aprende del
-                    <span class="block gradient-text">Mejor Instructor</span>
+                    Contenido
+                    <span class="gradient-text"> Gratuito </span>
                 </h3>
                 <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
-                    Carlos Gallardouitarrista profesional con más de 15 años de experiencia y reconocimiento internacional
+                    Disfruta de nuestras canciones y tutoriales completamente gratis
                 </p>
             </div>
 
-            <div class="max-w-6xl mx-auto">
-                <div class="overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 shadow-2xl rounded-2xl">
-                    <div class="grid lg:grid-cols-2 gap-0">
-                        <div class="relative">
-                            <img src="img/Vert.jpg" alt="Carlos Mendoza - Instructor Profesional" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Ojalá -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="aspect-video bg-gray-200 relative">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/FkEe7j7I6jw" title="Ojalá" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-2">Ojalá</h4>
+                        <p class="text-sm text-muted-foreground mb-3">Canción original</p>
+                        <a href="https://youtu.be/FkEe7j7I6jw" target="_blank" class="text-primary hover:underline text-sm font-medium">Ver Tutorial →</a>
+                    </div>
+                </div>
 
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <div class="flex items-center gap-4 mb-4">
-                                    <div class="flex items-center gap-1">
-                                        <svg class="h-5 w-5 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
-                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                        </svg>
-                                        <span class="text-white font-bold text-lg">4.9</span>
-                                        <span class="text-white/80 text-sm">rating</span>
-                                    </div>
-                                    <div class="flex items-center gap-1">
-                                        <svg class="h-5 w-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                        </svg>
-                                        <span class="text-white font-bold">15,420</span>
-                                        <span class="text-white/80 text-sm">estudiantes</span>
-                                    </div>
-                                    <div class="flex items-center gap-1">
-                                        <svg class="h-5 w-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                        </svg>
-                                        <span class="text-white font-bold">8</span>
-                                        <span class="text-white/80 text-sm">cursos</span>
-                                    </div>
-                                </div>
+                <!-- Sin tu latido -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="aspect-video bg-gray-200 relative">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/IrVAii_L7Pg" title="Sin tu latido" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-2">Sin tu latido</h4>
+                        <p class="text-sm text-muted-foreground mb-3">Canción original</p>
+                        <a href="https://youtu.be/FIwMzzFsAvI" target="_blank" class="text-primary hover:underline text-sm font-medium">Ver Tutorial →</a>
+                    </div>
+                </div>
 
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-primary/90 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Guitarra Clásica</span>
-                                    <span class="bg-primary/90 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Rock</span>
-                                    <span class="bg-primary/90 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Jazz</span>
-                                    <span class="bg-primary/90 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Producción Musical</span>
-                                    <span class="bg-primary/90 text-white border-0 rounded-full px-3 py-1 text-sm font-medium">Composición</span>
+                <!-- Todo se transforma -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="aspect-video bg-gray-200 relative">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/TNvaCbIC0X4" title="Todo se transforma" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-2">Todo se transforma</h4>
+                        <p class="text-sm text-muted-foreground mb-3">Canción original</p>
+                        <a href="https://youtu.be/JqPcb1SvR-Y" target="_blank" class="text-primary hover:underline text-sm font-medium">Ver Tutorial →</a>
+                    </div>
+                </div>
+
+                <!-- Te vi venir -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="aspect-video bg-gray-200 relative">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/cPWy9rgbdmU" title="Te vi venir" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-2">Te vi venir</h4>
+                        <p class="text-sm text-muted-foreground mb-3">Canción original</p>
+                        <a href="https://youtu.be/t7Cxg_dU23E" target="_blank" class="text-primary hover:underline text-sm font-medium">Ver Tutorial →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregando sección de clases personalizadas con redes sociales -->
+    <!-- Personal Classes Section -->
+    <section id="clases-personalizadas" class="py-20 px-4">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-black text-foreground mb-6 font-montserrat">
+                    Clases
+                    <span class="gradient-text"> Personalizadas </span>
+                </h3>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                    Agenda tu clase individual con Carlos Mendoza y acelera tu aprendizaje
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-8 shadow-lg">
+                            <h4 class="text-2xl font-bold mb-4 font-montserrat">¿Por qué clases personalizadas?</h4>
+                            <ul class="space-y-3 text-muted-foreground">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Atención 100% personalizada
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Horarios flexibles
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Progreso acelerado
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Repertorio personalizado
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-8 shadow-lg">
+                            <h4 class="text-xl font-bold mb-4 font-montserrat">Contáctame directamente</h4>
+                            <div class="space-y-4">
+                                <!-- WhatsApp -->
+                                <a href="https://wa.me/1234567890" target="_blank" class="flex items-center gap-4 p-4 bg-green-50 hover:bg-green-100 rounded-xl transition-colors">
+                                    <div class="bg-green-500 p-3 rounded-full">
+                                        <svg class="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-green-800">WhatsApp</p>
+                                        <p class="text-sm text-green-600">Agenda tu clase ahora</p>
+                                    </div>
+                                </a>
+
+                                <!-- Instagram -->
+                                <a href="https://instagram.com/carlosmendoza" target="_blank" class="flex items-center gap-4 p-4 bg-pink-50 hover:bg-pink-100 rounded-xl transition-colors">
+                                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full">
+                                        <svg class="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987c6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.132-1.551c-.684-.94-.684-2.102 0-3.042c.684-.94 1.835-1.551 3.132-1.551s2.448.611 3.132 1.551c.684.94.684 2.102 0 3.042c-.684.94-1.835 1.551-3.132 1.551zM7.718 0c-1.297 0-2.448-.611-3.132-1.551c-.684-.94-.684-2.102 0-3.042c.684-.94 1.835-1.551 3.132-1.551s2.448.611 3.132 1.551c.684.94.684 2.102 0 3.042c-.684.94-1.835 1.551-3.132 1.551z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-pink-800">Instagram</p>
+                                        <p class="text-sm text-pink-600">@carlosmendoza</p>
+                                    </div>
+                                </a>
+
+                                <!-- Ubicación -->
+                                <div class="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
+                                    <div class="bg-blue-500 p-3 rounded-full">
+                                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-blue-800">Ubicación</p>
+                                        <p class="text-sm text-blue-600">Ciudad de México, México</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="p-8 lg:p-12 flex flex-col justify-center">
-                            <div class="mb-8">
-                                <h4 class="text-3xl font-black text-foreground mb-2 font-montserrat">Carlos Gallardo>
-                                <p class="text-xl text-primary font-semibold mb-6">Guitarrista Profesional & Musico Cantautor</p>
-                                <div class="flex items-center gap-2 text-muted-foreground mb-6">
-                                    <svg class="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl p-8 border border-primary/10">
+                            <div class="text-center mb-6">
+                                <div class="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-2xl font-bold font-montserrat mb-2">Carlos Mendoza</h4>
+                                <p class="text-muted-foreground">Guitarrista Profesional & Productor Musical</p>
+                            </div>
+
+                            <div class="space-y-4 text-sm">
+                                <div class="flex items-center gap-3">
+                                    <svg class="h-4 w-4 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <span>15+ años de experiencia</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                    </svg>
+                                    <span>Más de 1000 estudiantes</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    <span class="font-medium">15+ años de experiencia</span>
+                                    <span>Certificado por Berklee College</span>
                                 </div>
                             </div>
 
-                            <div class="space-y-6 mb-8">
-                                <div>
-                                    <h5 class="font-bold text-foreground mb-3 font-montserrat">Sobre el Instructor</h5>
-                                    <p class="text-muted-foreground leading-relaxed">
-                                        Carlos Gallardo es un guitarrista, pianista, compositor y productor originario de Torreón, Coahuila, México, con más de 20 años de experiencia tocando música y más de 15 años enseñando a estudiantes de todos los niveles.
+                            <div class="mt-6 pt-6 border-t border-primary/20">
+                                <p class="text-center text-2xl font-bold text-primary font-montserrat">$50 USD</p>
+                                <p class="text-center text-sm text-muted-foreground">por hora</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-Ganador de la Beca María Grever 2019 —el estímulo de composición más importante de América Latina—, es miembro activo de la Sociedad de Autores y Compositores de México (SACM) y ha sido galardonado en múltiples concursos de música.
+    <!-- Instructor Section -->
+    <section id="instructor" class="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div class="container mx-auto">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-4xl font-black text-foreground mb-6 font-montserrat">
+                                Conoce a tu
+                                <span class="gradient-text"> Instructor </span>
+                            </h3>
+                            <p class="text-xl text-muted-foreground leading-relaxed">
+                                Aprende de un músico profesional con años de experiencia en la industria
+                            </p>
+                        </div>
 
-Además de enseñar, desarrolla su carrera como cantautor independiente, con dos discos grabados: En La Ruta y Anecdotario, disponibles en todas las plataformas digitales.
-                                    </p>
+                        <div class="bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-8 shadow-lg">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xl font-bold">
+                                    CM
                                 </div>
-
                                 <div>
-                                    <h5 class="font-bold text-foreground mb-3 font-montserrat">Logros y Certificaciones</h5>
-                                    <div class="space-y-2">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-2 h-2 bg-primary rounded-full"></div>
-                                            <span class="text-muted-foreground text-sm">Ganador de la Beca María Grever 2019</span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-2 h-2 bg-primary rounded-full"></div>
-                                            <span class="text-muted-foreground text-sm">Autor de 2 discos originales</span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-2 h-2 bg-primary rounded-full"></div>
-                                            <span class="text-muted-foreground text-sm">Más de 15 años enseñando música</span>
-                                        </div>
-                                      
+                                    <h4 class="text-2xl font-bold font-montserrat">Carlos Mendoza</h4>
+                                    <p class="text-muted-foreground">Guitarrista Profesional & Productor Musical</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div class="text-center">
+                                    <div class="text-3xl font-black text-primary font-montserrat">15+</div>
+                                    <div class="text-sm text-muted-foreground">Años experiencia</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-3xl font-black text-primary font-montserrat">1000+</div>
+                                    <div class="text-sm text-muted-foreground">Estudiantes</div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-6">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gradient-to-r from-primary to-cyan-400 text-white px-3 py-1 rounded-full text-sm font-medium">Guitarra Clásica</span>
+                                    <span class="bg-gradient-to-r from-accent to-red-400 text-white px-3 py-1 rounded-full text-sm font-medium">Rock</span>
+                                    <span class="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium">Jazz</span>
+                                    <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">Producción Musical</span>
+                                    <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">Composición</span>
+                                </div>
+                            </div>
+
+                            <p class="text-muted-foreground leading-relaxed mb-6">
+                                Carlos es un guitarrista profesional con más de 15 años de experiencia en la industria musical. Ha trabajado con artistas reconocidos internacionalmente y ha producido más de 50 álbumes. Su metodología única combina técnica clásica con estilos modernos, haciendo que el aprendizaje sea accesible y divertido para estudiantes de todos los niveles.
+                            </p>
+
+                            <div class="space-y-3">
+                                <h5 class="font-bold text-lg font-montserrat">Logros y Certificaciones</h5>
+                                <div class="space-y-2 text-sm text-muted-foreground">
+                                    <div class="flex items-center gap-2">
+                                        <svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                        </svg>
+                                        <span>Graduado del Berklee College of Music</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                        </svg>
+                                        <span>Productor de 3 álbumes ganadores de Grammy Latino</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                        </svg>
+                                        <span>Más de 1 millón de reproducciones en Spotify</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                        </svg>
+                                        <span>Instructor certificado por la Guitar Foundation of America</span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <button class="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-lg px-8 py-4 rounded-2xl text-white font-medium">
-                                Ver Todos sus Cursos
-                                <svg class="ml-2 h-5 w-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </button>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-3xl"></div>
+                        <div class="relative bg-gradient-to-br from-white to-gray-50/50 rounded-3xl p-8 shadow-2xl">
+                            <img src="/placeholder.svg?height=400&width=400" alt="Carlos Mendoza" class="w-full h-96 object-cover rounded-2xl mb-6">
+                            
+                            <div class="text-center">
+                                <blockquote class="text-lg italic text-muted-foreground mb-4 leading-relaxed">
+                                    "La música es el lenguaje universal que conecta corazones. Mi misión es ayudarte a encontrar tu propia voz musical y expresar tu creatividad sin límites."
+                                </blockquote>
+                                <cite class="font-bold text-foreground">- Carlos Mendoza</cite>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1375,21 +704,13 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
     </section>
 
     <!-- Tuner Section -->
-    <section id="afinador" class="py-16 px-4 bg-gray-50/30">
+    <section id="afinador" class="py-20 px-4">
         <div class="container mx-auto">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-foreground mb-4 font-montserrat">Afinador Cromático Profesional</h3>
-                <p class="text-muted-foreground max-w-2xl mx-auto">
-                    Mantén tu instrumento perfectamente afinado con nuestro afinador de alta precisión.
-                </p>
-            </div>
-            
-            <!-- Simple Tuner Widget -->
-            <div class="max-w-md mx-auto">
-                <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
-                    <div class="mb-6">
-                        <div class="w-32 h-32 mx-auto bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mb-4">
-                            <svg class="h-16 w-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="bg-gradient-to-br from-white to-gray-50/50 rounded-3xl p-12 shadow-2xl">
+                    <div class="mb-8">
+                        <div class="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
                             </svg>
                         </div>
@@ -1397,9 +718,17 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
                         <p class="text-muted-foreground">Haz clic para activar el micrófono</p>
                     </div>
                     
-                    <button class="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium py-4 rounded-xl mb-4">
+                    <button id="tuner-btn" class="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium py-4 rounded-xl mb-4">
                         Activar Afinador
                     </button>
+                    
+                    <div id="tuner-display" class="hidden mb-6">
+                        <div class="text-4xl font-bold mb-2" id="note-display">-</div>
+                        <div class="text-lg text-muted-foreground" id="frequency-display">0 Hz</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                            <div id="tuning-indicator" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 50%"></div>
+                        </div>
+                    </div>
                     
                     <div class="text-sm text-muted-foreground">
                         <p>• Funciona con guitarra, bajo, violín y más</p>
@@ -1416,6 +745,7 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
         <div class="container mx-auto">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="space-y-4">
+                    <!-- Logo del footer actualizado a Musidemy -->
                     <div class="flex items-center gap-3">
                         <div class="relative">
                             <div class="absolute inset-0 bg-primary/20 rounded-full blur-md"></div>
@@ -1426,90 +756,81 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
                             </div>
                         </div>
                         <div>
-                            <span class="font-black text-lg font-montserrat">MusicMaster</span>
+                            <!-- Cambiando nombre del footer a Musidemy -->
+                            <span class="font-black text-lg font-montserrat">Musidemy</span>
                             <p class="text-xs text-muted-foreground font-medium">ACADEMY</p>
                         </div>
                     </div>
                     <p class="text-muted-foreground text-sm leading-relaxed">
-                        La academia online líder en enseñanza musical con más de 50,000 estudiantes satisfechos en todo el mundo.
+                        La academia online de música con cursos profesionales y clases personalizadas.
                     </p>
                 </div>
 
                 <div>
                     <h4 class="font-bold mb-4 font-montserrat">Cursos</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Principiante</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Intermedio</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Profesional</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Especializaciones</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Guitarra</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Piano</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Composición</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Ukulele</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-bold mb-4 font-montserrat">Herramientas</h4>
+                    <h4 class="font-bold mb-4 font-montserrat">Servicios</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Afinador Cromático</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Metrónomo</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Acordes</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Escalas</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Clases Personalizadas</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Contenido Gratuito</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Afinador</a></li>
+                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Soporte</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-bold mb-4 font-montserrat">Soporte</h4>
+                    <h4 class="font-bold mb-4 font-montserrat">Contacto</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Centro de Ayuda</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Contacto</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</a></li>
-                        <li><a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">Términos</a></li>
+                        <li><a href="mailto:info@musidemy.com" class="text-sm text-muted-foreground hover:text-primary transition-colors">info@musidemy.com</a></li>
+                        <li><a href="https://wa.me/1234567890" class="text-sm text-muted-foreground hover:text-primary transition-colors">WhatsApp</a></li>
+                        <li><a href="https://instagram.com/carlosmendoza" class="text-sm text-muted-foreground hover:text-primary transition-colors">Instagram</a></li>
+                        <li><span class="text-sm text-muted-foreground">Ciudad de México</span></li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-border pt-8 text-center">
                 <p class="text-sm text-muted-foreground">
-                    &copy; 2024 MusicMaster Academy. Todos los derechos reservados.
+                    © 2024 Musidemy Academy. Todos los derechos reservados.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Agregando modal del carrito de compras -->
     <!-- Cart Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[80vh] overflow-hidden">
-                <!-- Cart Header -->
-                <div class="flex items-center justify-between p-6 border-b border-border">
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
                     <h3 class="text-xl font-bold font-montserrat">Carrito de Compras</h3>
-                    <button id="close-cart" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
-
-                <!-- Cart Items -->
+                
                 <div id="cart-items" class="p-6 max-h-96 overflow-y-auto">
-                    <div id="empty-cart" class="text-center py-8">
-                        <svg class="h-16 w-16 text-muted-foreground mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H17M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-                        </svg>
-                        <p class="text-muted-foreground">Tu carrito está vacío</p>
-                        <p class="text-sm text-muted-foreground mt-2">Agrega algunos cursos para comenzar</p>
-                    </div>
+                    <p class="text-gray-500 text-center">Tu carrito está vacío</p>
                 </div>
-
-                <!-- Cart Footer -->
-                <div id="cart-footer" class="border-t border-border p-6 hidden">
+                
+                <div class="border-t border-gray-200 p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <span class="text-lg font-bold font-montserrat">Total:</span>
-                        <span id="cart-total" class="text-2xl font-bold text-primary font-montserrat">$0</span>
+                        <span class="text-lg font-bold">Total:</span>
+                        <span id="cart-total" class="text-2xl font-bold text-primary">$0</span>
                     </div>
-                    <button id="checkout-btn" class="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium py-3 rounded-xl transition-all duration-200">
+                    <button id="checkout-btn" class="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white font-medium py-3 rounded-xl">
                         Proceder al Pago
-                        <svg class="h-4 w-4 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        <svg class="ml-2 h-4 w-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </button>
                 </div>
@@ -1517,78 +838,61 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
         </div>
     </div>
 
+    <!-- Corrigiendo datos del carrito para que funcione correctamente -->
+    <!-- Corrigiendo JavaScript del carrito para capturar datos correctamente -->
     <script>
-        // Shopping Cart Functionality
+        // Cart functionality
         class ShoppingCart {
             constructor() {
-                this.items = JSON.parse(localStorage.getItem('cart')) || [];
-                this.init();
-            }
-
-            init() {
-                this.updateCartUI();
+                this.items = [];
+                this.loadCart();
                 this.bindEvents();
+                this.updateCartUI();
             }
 
             bindEvents() {
-                // Cart button
                 document.getElementById('cart-btn').addEventListener('click', () => {
-                    this.showCart();
+                    this.toggleCart();
                 });
 
-                // Close cart
                 document.getElementById('close-cart').addEventListener('click', () => {
-                    this.hideCart();
+                    this.toggleCart();
                 });
 
-                // Close cart on backdrop click
                 document.getElementById('cart-modal').addEventListener('click', (e) => {
                     if (e.target.id === 'cart-modal') {
-                        this.hideCart();
+                        this.toggleCart();
                     }
                 });
 
                 document.querySelectorAll('.add-to-cart-btn').forEach((btn, index) => {
                     btn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        this.addToCart(this.getCourseData(index));
+                        const courseCard = btn.closest('.card-hover');
+                        const courseName = courseCard.querySelector('h5').textContent.trim();
+                        const priceElement = courseCard.querySelector('.text-2xl.font-bold');
+                        const priceText = priceElement.textContent.replace('$', '').trim();
+                        const price = parseInt(priceText);
+                        const typeElement = courseCard.querySelector('.text-sm.text-muted-foreground:last-child');
+                        const typeText = typeElement ? typeElement.textContent : 'Curso individual';
+                        const imageElement = courseCard.querySelector('img');
+                        
+                        const course = {
+                            id: index + 1,
+                            name: courseName,
+                            price: price,
+                            image: imageElement ? imageElement.src : '/placeholder.svg?height=200&width=300',
+                            instructor: 'Carlos Mendoza',
+                            type: typeText
+                        };
+                        
+                        this.addToCart(course);
                     });
                 });
 
-                // Checkout button
                 document.getElementById('checkout-btn').addEventListener('click', () => {
                     this.checkout();
                 });
-            }
-
-            getCourseData(index) {
-                const courses = [
-                    {
-                        id: 1,
-                        name: 'Guitarra Clásica Profesional',
-                        price: 149,
-                        originalPrice: 299,
-                        image: '/placeholder.svg?height=250&width=400',
-                        instructor: 'Carlos Mendoza'
-                    },
-                    {
-                        id: 2,
-                        name: 'Producción Musical Digital',
-                        price: 199,
-                        originalPrice: 399,
-                        image: '/placeholder.svg?height=250&width=400',
-                        instructor: 'Carlos Mendoza'
-                    },
-                    {
-                        id: 3,
-                        name: 'Piano para Principiantes',
-                        price: 89,
-                        originalPrice: 179,
-                        image: '/placeholder.svg?height=250&width=400',
-                        instructor: 'Carlos Mendoza'
-                    }
-                ];
-                return courses[index];
             }
 
             addToCart(course) {
@@ -1602,7 +906,7 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
                 this.items.push({...course, quantity: 1});
                 this.saveCart();
                 this.updateCartUI();
-                this.showNotification('Curso agregado al carrito', 'success');
+                this.showNotification(`${course.name} agregado al carrito`, 'success');
             }
 
             removeFromCart(courseId) {
@@ -1612,110 +916,99 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
                 this.showNotification('Curso eliminado del carrito', 'info');
             }
 
+            toggleCart() {
+                const modal = document.getElementById('cart-modal');
+                modal.classList.toggle('hidden');
+                this.renderCartItems();
+            }
+
             updateCartUI() {
                 const cartCount = document.getElementById('cart-count');
-                const cartItems = document.getElementById('cart-items');
-                const cartFooter = document.getElementById('cart-footer');
-                const emptyCart = document.getElementById('empty-cart');
-                const cartTotal = document.getElementById('cart-total');
-
-                // Update cart count
-                if (this.items.length > 0) {
-                    cartCount.textContent = this.items.length;
+                const totalItems = this.items.reduce((sum, item) => sum + item.quantity, 0);
+                
+                if (totalItems > 0) {
+                    cartCount.textContent = totalItems;
                     cartCount.classList.remove('hidden');
                 } else {
                     cartCount.classList.add('hidden');
                 }
 
-                // Update cart items
-                if (this.items.length === 0) {
-                    emptyCart.classList.remove('hidden');
-                    cartFooter.classList.add('hidden');
-                } else {
-                    emptyCart.classList.add('hidden');
-                    cartFooter.classList.remove('hidden');
-                    
-                    cartItems.innerHTML = '';
-                    this.items.forEach(item => {
-                        const itemElement = document.createElement('div');
-                        itemElement.className = 'flex items-center gap-4 p-4 border border-border rounded-xl mb-3';
-                        itemElement.innerHTML = `
-                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
-                            <div class="flex-1">
-                                <h4 class="font-medium text-sm">${item.name}</h4>
-                                <p class="text-xs text-muted-foreground">${item.instructor}</p>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <span class="font-bold text-primary">$${item.price}</span>
-                                    <span class="text-xs text-muted-foreground line-through">$${item.originalPrice}</span>
-                                </div>
-                            </div>
-                            <button onclick="cart.removeFromCart(${item.id})" class="p-2 hover:bg-red-50 text-red-500 rounded-lg transition-colors">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>
-                        `;
-                        cartItems.appendChild(itemElement);
-                    });
+                this.updateCartTotal();
+            }
 
-                    // Update total
-                    const total = this.items.reduce((sum, item) => sum + item.price, 0);
+            renderCartItems() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                
+                if (this.items.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center">Tu carrito está vacío</p>';
+                    return;
+                }
+
+                cartItemsContainer.innerHTML = this.items.map(item => `
+                    <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-xl mb-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-medium text-sm text-gray-900">${item.name}</h4>
+                            <p class="text-xs text-gray-500">${item.instructor}</p>
+                            <p class="text-primary font-bold">$${item.price}</p>
+                        </div>
+                        <button onclick="cart.removeFromCart(${item.id})" class="text-red-500 hover:text-red-700">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            updateCartTotal() {
+                const total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const cartTotal = document.getElementById('cart-total');
+                if (cartTotal) {
                     cartTotal.textContent = `$${total}`;
                 }
             }
 
-            showCart() {
-                document.getElementById('cart-modal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-
-            hideCart() {
-                document.getElementById('cart-modal').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-
             checkout() {
-                if (this.items.length === 0) return;
+                if (this.items.length === 0) {
+                    this.showNotification('Tu carrito está vacío', 'warning');
+                    return;
+                }
+
+                this.showNotification('Procesando pago...', 'info');
                 
-                const total = this.items.reduce((sum, item) => sum + item.price, 0);
-                this.showNotification(`Procesando pago por $${total}...`, 'success');
-                
-                // Simulate checkout process
                 setTimeout(() => {
                     this.items = [];
                     this.saveCart();
                     this.updateCartUI();
-                    this.hideCart();
-                    this.showNotification('¡Compra realizada con éxito!', 'success');
+                    this.toggleCart();
+                    this.showNotification('¡Compra realizada con éxito! Recibirás un email con los detalles.', 'success');
                 }, 2000);
             }
 
             saveCart() {
-                localStorage.setItem('cart', JSON.stringify(this.items));
+                localStorage.setItem('musidemy_cart', JSON.stringify(this.items));
+            }
+
+            loadCart() {
+                const saved = localStorage.getItem('musidemy_cart');
+                if (saved) {
+                    this.items = JSON.parse(saved);
+                }
             }
 
             showNotification(message, type = 'info') {
                 const notification = document.createElement('div');
-                notification.className = `fixed top-4 right-4 z-50 p-4 rounded-xl shadow-lg transition-all duration-300 transform translate-x-full`;
-                
-                const colors = {
-                    success: 'bg-green-500 text-white',
-                    warning: 'bg-yellow-500 text-white',
-                    info: 'bg-blue-500 text-white',
-                    error: 'bg-red-500 text-white'
-                };
-                
-                notification.className += ` ${colors[type]}`;
+                notification.className = `notification ${type}`;
                 notification.textContent = message;
-                
                 document.body.appendChild(notification);
-                
+
                 setTimeout(() => {
-                    notification.classList.remove('translate-x-full');
+                    notification.classList.add('show');
                 }, 100);
-                
+
                 setTimeout(() => {
-                    notification.classList.add('translate-x-full');
+                    notification.classList.remove('show');
                     setTimeout(() => {
                         document.body.removeChild(notification);
                     }, 300);
@@ -1723,96 +1016,175 @@ Además de enseñar, desarrolla su carrera como cantautor independiente, con dos
             }
         }
 
-        // Initialize cart
-        const cart = new ShoppingCart();
-
         class ChromaticTuner {
             constructor() {
                 this.audioContext = null;
                 this.analyser = null;
                 this.microphone = null;
                 this.isActive = false;
-                this.button = document.querySelector('#afinador button');
-                this.init();
+                this.bindEvents();
             }
 
-            init() {
-                this.button.addEventListener('click', () => {
-                    if (!this.isActive) {
-                        this.start();
-                    } else {
-                        this.stop();
-                    }
+            bindEvents() {
+                document.getElementById('tuner-btn').addEventListener('click', () => {
+                    this.toggleTuner();
                 });
             }
 
-            async start() {
+            async toggleTuner() {
+                if (!this.isActive) {
+                    await this.startTuner();
+                } else {
+                    this.stopTuner();
+                }
+            }
+
+            async startTuner() {
                 try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            echoCancellation: false,
+                            autoGainControl: false,
+                            noiseSuppression: false
+                        } 
+                    });
+                    
                     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     this.analyser = this.audioContext.createAnalyser();
                     this.microphone = this.audioContext.createMediaStreamSource(stream);
                     
-                    this.analyser.fftSize = 4096;
+                    this.analyser.fftSize = 8192;
+                    this.analyser.smoothingTimeConstant = 0.8;
                     this.microphone.connect(this.analyser);
                     
                     this.isActive = true;
-                    this.button.textContent = 'Afinador Activo - Toca tu instrumento';
-                    this.button.classList.add('bg-green-500');
+                    document.getElementById('tuner-btn').textContent = 'Detener Afinador';
+                    document.getElementById('tuner-btn').classList.add('bg-red-500');
+                    document.getElementById('tuner-display').classList.remove('hidden');
                     
-                    this.detectPitch();
+                    this.updatePitch();
                 } catch (error) {
                     console.error('Error accessing microphone:', error);
-                    this.button.textContent = 'Error: Permite acceso al micrófono';
+                    alert('No se pudo acceder al micrófono. Permite el acceso para usar el afinador.');
                 }
             }
 
-            stop() {
+            stopTuner() {
+                if (this.microphone && this.microphone.mediaStream) {
+                    this.microphone.mediaStream.getTracks().forEach(track => track.stop());
+                }
                 if (this.audioContext) {
                     this.audioContext.close();
                 }
+                
                 this.isActive = false;
-                this.button.textContent = 'Activar Afinador';
-                this.button.classList.remove('bg-green-500');
+                document.getElementById('tuner-btn').textContent = 'Activar Afinador';
+                document.getElementById('tuner-btn').classList.remove('bg-red-500');
+                document.getElementById('tuner-display').classList.add('hidden');
             }
 
-            detectPitch() {
+            updatePitch() {
                 if (!this.isActive) return;
 
                 const bufferLength = this.analyser.frequencyBinCount;
-                const dataArray = new Float32Array(bufferLength);
-                this.analyser.getFloatFrequencyData(dataArray);
+                const buffer = new Float32Array(bufferLength);
+                this.analyser.getFloatTimeDomainData(buffer);
 
-                // Simple pitch detection (this is a basic implementation)
-                const sampleRate = this.audioContext.sampleRate;
-                const nyquist = sampleRate / 2;
-                const maxIndex = dataArray.indexOf(Math.max(...dataArray));
-                const frequency = (maxIndex * nyquist) / bufferLength;
-
-                if (frequency > 80 && frequency < 2000) {
+                const frequency = this.autoCorrelate(buffer, this.audioContext.sampleRate);
+                
+                if (frequency > 0) {
                     const note = this.frequencyToNote(frequency);
-                    this.button.textContent = `♪ ${note} - ${Math.round(frequency)}Hz`;
+                    document.getElementById('note-display').textContent = note.name;
+                    document.getElementById('frequency-display').textContent = `${frequency.toFixed(1)} Hz`;
+                    
+                    const cents = note.cents;
+                    const indicator = document.getElementById('tuning-indicator');
+                    const position = 50 + (cents / 50) * 25; // Convert cents to percentage
+                    indicator.style.width = Math.max(0, Math.min(100, position)) + '%';
+                    
+                    if (Math.abs(cents) < 5) {
+                        indicator.style.backgroundColor = '#10b981'; // Green when in tune
+                    } else {
+                        indicator.style.backgroundColor = '#f59e0b'; // Orange when out of tune
+                    }
+                } else {
+                    document.getElementById('note-display').textContent = '-';
+                    document.getElementById('frequency-display').textContent = '0 Hz';
                 }
 
-                requestAnimationFrame(() => this.detectPitch());
+                requestAnimationFrame(() => this.updatePitch());
+            }
+
+            autoCorrelate(buffer, sampleRate) {
+                const SIZE = buffer.length;
+                const rms = Math.sqrt(buffer.reduce((sum, val) => sum + val * val, 0) / SIZE);
+                
+                if (rms < 0.01) return -1;
+
+                let r1 = 0, r2 = SIZE - 1;
+                const thres = 0.2;
+                
+                for (let i = 0; i < SIZE / 2; i++) {
+                    if (Math.abs(buffer[i]) < thres) { r1 = i; break; }
+                }
+                for (let i = 1; i < SIZE / 2; i++) {
+                    if (Math.abs(buffer[SIZE - i]) < thres) { r2 = SIZE - i; break; }
+                }
+
+                buffer = buffer.slice(r1, r2);
+                const SIZE2 = buffer.length;
+                const c = new Array(SIZE2).fill(0);
+                
+                for (let i = 0; i < SIZE2; i++) {
+                    for (let j = 0; j < SIZE2 - i; j++) {
+                        c[i] = c[i] + buffer[j] * buffer[j + i];
+                    }
+                }
+
+                let d = 0;
+                while (c[d] > c[d + 1]) d++;
+                
+                let maxval = -1, maxpos = -1;
+                for (let i = d; i < SIZE2; i++) {
+                    if (c[i] > maxval) {
+                        maxval = c[i];
+                        maxpos = i;
+                    }
+                }
+                
+                let T0 = maxpos;
+                
+                const x1 = c[T0 - 1], x2 = c[T0], x3 = c[T0 + 1];
+                const a = (x1 - 2 * x2 + x3) / 2;
+                const b = (x3 - x1) / 2;
+                if (a) T0 = T0 - b / (2 * a);
+
+                return sampleRate / T0;
             }
 
             frequencyToNote(frequency) {
-                const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
                 const A4 = 440;
                 const C0 = A4 * Math.pow(2, -4.75);
+                const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
                 
                 if (frequency > C0) {
                     const h = Math.round(12 * Math.log2(frequency / C0));
                     const octave = Math.floor(h / 12);
                     const n = h % 12;
-                    return notes[n] + octave;
+                    const noteName = noteNames[n] + octave;
+                    
+                    const expectedFreq = C0 * Math.pow(2, h / 12);
+                    const cents = Math.round(1200 * Math.log2(frequency / expectedFreq));
+                    
+                    return { name: noteName, cents: cents };
                 }
-                return '';
+                
+                return { name: "-", cents: 0 };
             }
         }
 
-        // Initialize tuner
+        // Initialize components
+        const cart = new ShoppingCart();
         const tuner = new ChromaticTuner();
 
         // Smooth scrolling for navigation links
